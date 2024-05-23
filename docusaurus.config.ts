@@ -4,7 +4,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'Hai',
-  tagline: 'Hai documentation (coming soon)',
+  tagline: 'documentation',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
