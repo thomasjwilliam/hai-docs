@@ -3,8 +3,8 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: 'Hai',
+  tagline: 'Hai documentation (coming soon)',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
