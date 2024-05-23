@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://github.com/hai-docs/blog</id>
-    <title>My Site Blog</title>
+    <title>Hai Blog</title>
     <updated>2021-08-26T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://github.com/hai-docs/blog"/>
-    <subtitle>My Site Blog</subtitle>
+    <subtitle>Hai Blog</subtitle>
     <icon>https://github.com/hai-docs/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Welcome]]></title>
