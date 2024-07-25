@@ -17,13 +17,16 @@ const sidebars: SidebarsConfig = {
   // But you can create a sidebar manually
   tutorialSidebar: [
     'intro',
-    'tut-canned-responses',
-    // 'hello',
     // {
     //   type: 'category',
-    //   label: 'Tutorial',
-    //   items: ['tutorial-basics/create-a-document'],
+    //   label: 'Tutorials',
+    //   items: ['tut-canned-responses'],
     // },
+    {
+      type: 'category',
+      label: 'Recipes',
+      items: ['rec-markdown-to-footnotes'],
+    },
   ],
 };
 
