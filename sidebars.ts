@@ -1,4 +1,4 @@
-import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
+import type { SidebarsConfig } from "@docusaurus/plugin-content-docs";
 
 /**
  * Creating a sidebar enables you to:
@@ -16,16 +16,21 @@ const sidebars: SidebarsConfig = {
 
   // But you can create a sidebar manually
   tutorialSidebar: [
-    'intro',
+    "intro",
     // {
     //   type: 'category',
     //   label: 'Tutorials',
     //   items: ['tut-canned-responses'],
     // },
     {
-      type: 'category',
-      label: 'Recipes',
-      items: ['rec-markdown-to-footnotes'],
+      type: "category",
+      label: "Recipes",
+      items: ["rec-markdown-to-footnotes"],
+    },
+    {
+      type: "category",
+      label: "Library",
+      items: ["lib-timezone-converter"],
     },
   ],
 };
