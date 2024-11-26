@@ -30,7 +30,7 @@ const sidebars: SidebarsConfig = {
     {
       type: "category",
       label: "Library",
-      items: [],
+      items: ["lib-timezone-converter"],
     },
   ],
 };
