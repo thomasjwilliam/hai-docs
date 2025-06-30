@@ -27,7 +27,7 @@ const sidebars: SidebarsConfig = {
       label: "Recipes",
       link: {
         type: "doc",
-        id: "recipes/about",
+        id: "recipes/index",
       },
       items: [
         "recipes/markdown-to-footnotes",
