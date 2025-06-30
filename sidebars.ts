@@ -25,12 +25,19 @@ const sidebars: SidebarsConfig = {
     {
       type: "category",
       label: "Recipes",
-      items: ["rec-markdown-to-footnotes"],
+      link: {
+        type: "doc",
+        id: "recipes/about",
+      },
+      items: [
+        "recipes/markdown-to-footnotes",
+        "recipes/timezone-converter",
+      ],
     },
     {
       type: "category",
-      label: "Library",
-      items: ["lib-timezone-converter"],
+      label: "Reference",
+      items: ["reference/snippet", "reference/macro"],
     },
   ],
 };
