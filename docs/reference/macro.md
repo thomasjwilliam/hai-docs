@@ -14,4 +14,4 @@ A macro - just like a static snippet - is defined by:
   returned value can be used in other snippets or injected
   directly into your document.
 
-A macro can have multiple scripts, published or drafted, and reordered .
+A macro can have multiple scripts, published or drafted, and reordered.
