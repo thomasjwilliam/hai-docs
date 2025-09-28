@@ -2,46 +2,78 @@
 
 ## About
 
-Directives are special Markdown elements that are used to render content in the document.
+Directives are custom Markdown elements that are used to render interactive elements in the document.
 
 ## Form directives
 
 ### Button
 
-**About**
-
 Perform an action, similar to the HTML [button](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button) element.
 
 **Syntax**
 ```
-{{ button ...attributes }}
+{{button ...attributes}}
 ```
 
 **Attributes**
 
-* `command`
-* `text`
+* `command`: the macro trigger to run when the button is clicked
+* `text`: the text to display on the button
 
 **Examples**
 
 ```
-{{ button text="Click me" placeholder="SomeCommand" }}
+{{button text="Click me" command="MacroTrigger"}}
+```
+
+### Datalist
+
+Filter and/or select an option, similar to the HTML [datalist](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/datalist) element.
+
+**Syntax**
+
+```
+{{datalist ...attributes}}
+... with one or more {{option ...attributes}} directives
+{{/datalist}}
+```
+
+**Attributes**
+
+* `name`
+* `placeholder`
+* `value`
+
+**Examples**
+
+```
+{{datalist}}
+{{option value="foo"}}
+{{option value="bar"}}
+{{option value="baz"}}
+{{/datalist}}
+```
+
+```
+{{datalist value="bar"}}
+{{option value="foo" label="Foo Label"}}
+{{option value="bar" label="Bar Label"}}
+{{option value="baz" label="Baz Label"}}
+{{/datalist}}
 ```
 
 ### Input
-
-**About**
 
 Input some data, similar to the HTML [input](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input) element.
 
 **Syntax**
 ```
-{{ input ...attributes }}
+{{input ...attributes}}
 ```
 
 **Attributes**
 
-* `cols`
+* `cols`: the number of columns to define the width
 * `placeholder`
 * `type`: `text` (default) | `date` | `datetime-local`
 * `value`
@@ -49,96 +81,102 @@ Input some data, similar to the HTML [input](https://developer.mozilla.org/en-US
 **Examples**
 
 ```
-{{ input type="text" placeholder="Your name" }}
+{{input type="text" placeholder="Your name"}}
 ```
 
 ```
-{{ input type="text" placeholder="Your name" value="J. Doe" }}
+{{input type="text" placeholder="Your name" value="J. Doe"}}
 ```
 
 ```
-{{ input type="date" value="1970-01-01" }}
+{{input type="date" value="1970-01-01"}}
 ```
 
 ```
-{{ input type="datetime-local" value="1970-01-01T00:00" }}
+{{input type="datetime-local" value="1970-01-01T00:00"}}
+```
+
+### Option
+
+Provide an option to the `datalist` or `select` directives, similar to the HTML [option](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/option) element.
+
+**Syntax**
+```
+{{option ...attributes}}
+```
+
+**Attributes**
+
+* `label`: the label to display for the option
+* `value`
+
+**Examples**
+
+```
+{{option value="foo"}}
+```
+
+```
+{{option value="bar" label="Bar label"}}
 ```
 
 ### Select
-
-**About**
 
 Select an option, similar to the HTML [select](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/select) element.
 
 **Syntax**
 
 ```
-{{ select ...attributes }}
+{{select ...attributes}}
+... with one or more {{option ...attributes}} directives
+{{/select}}
 ```
 
 **Attributes**
 
-* `options`
-* `placeholder`
-* `selected`
-
-**Examples**
-
-```
-{{ select options="foo,bar,baz" }}
-```
-
-```
-{{ select options="foo(Foo label),bar(Bar label),baz(Baz label)" }}
-```
-
-```
-{{ select options="foo(Foo label),bar(Bar label),baz(Baz label)" selected="bar" }}
-```
-
-### Datalist
-
-**About**
-
-Filter and/or select an option, similar to the HTML [datalist](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/datalist) element.
-
-**Syntax**
-
-```
-{{ datalist ...attributes }}
-```
-
-**Attributes**
-
-* `options`
+* `name`
 * `placeholder`
 * `value`
 
 **Examples**
 
 ```
-{{ datalist options="foo(foo),bar(bar),baz(baz)" }}
+{{select}}
+{{option value="foo"}}
+{{option value="bar"}}
+{{option value="baz"}}
+{{/select}}
 ```
 
 ```
-{{ datalist options="foo(Foo label),bar(Bar label),baz(Baz label)" }}
+{{select}}
+{{option value="foo" label="Foo Label"}}
+{{option value="bar" label="Bar Label"}}
+{{option value="baz" label="Baz Label"}}
+{{/select}}
+```
+
+```
+{{select value="bar"}}
+{{option value="foo" label="Foo Label"}}
+{{option value="bar" label="Bar Label"}}
+{{option value="baz" label="Baz Label"}}
+{{/select}}
 ```
 
 ### Textarea
-
-**About**
 
 Write text, similar to the HTML [textarea](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea) element.
 
 **Syntax**
 
 ```
-{{ textarea ...attributes }}
+{{textarea ...attributes}}
 ```
 
 **Attributes**
 
-* `cols`
+* `cols`the number of columns to define the width
 * `value`
 * `placeholder`
 * `rows`
@@ -146,31 +184,27 @@ Write text, similar to the HTML [textarea](https://developer.mozilla.org/en-US/d
 **Examples**
 
 ```
-{{ textarea cols="20" rows="3" }}
+{{textarea cols="20" rows="3"}}
 ```
 
 ```
-{{ textarea placeholder="Enter text here..." cols="20" rows="3" }}
+{{textarea placeholder="Enter text here..." cols="20" rows="3"}}
 ```
 
 ```
-{{ textarea placeholder="Enter text here..." value="Predefined value" cols="20" rows="3" }}
+{{textarea placeholder="Enter text here..." value="Predefined value" cols="20" rows="3"}}
 ```
 
-## Sectioning directives
+## Sectioning and informational directives
 
-### Section
-
-**About**
-
-Define a section in the document, similar to the HTML [section](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/section) element.
+### Note
 
 **Syntax**
 
 ```
-{{ section start ...attributes }}
-whatever
-{{ section end }}
+{{note ...attributes}}
+... any content comes here
+{{/note}}
 ```
 
 **Attributes**
@@ -178,32 +212,26 @@ whatever
 * `action`: `confirm` | `dismiss`
 * `foldable`
 * `title`
-* `type`: `section` (default) | `info` | `success` | `warning` | `error`
+* `type`: `info` (default) | `success` | `warning` | `error`
 
 **Examples**
 
 ```
-{{ section start }}
-Look at meeeee! I'm in my own little section.
-{{ section end }}
-```
-
-```
-{{ section start type="info" }}
+{{note type="info"}}
 Information.
-{{ section end }}
+{{/note}}
 ```
 
 ```
-{{ section start type="success" action="dismiss" }}
+{{note type="success" action="dismiss"}}
 Success that can be dismissed.
-{{ section end }}
+{{/note}}
 ```
 
 ```
-{{ section start type="error" title="That's no good boss" foldable="true" }}
+{{note type="error" title="That's no good boss" foldable="true"}}
 Something happened.
-{{ section end }}
+{{/note}}
 ```
 
 ## Global directives attributes
