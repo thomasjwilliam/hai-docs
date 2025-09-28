@@ -38,7 +38,8 @@ const sidebars: SidebarsConfig = {
       type: "category",
       label: "Reference",
       items: [
-			  "reference/markdown-directives",
+        "reference/macro-utility-library",
+        "reference/markdown-directives",
 			  "reference/snippet",
 				"reference/macro"
 			],
