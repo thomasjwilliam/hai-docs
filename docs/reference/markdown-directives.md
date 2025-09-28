@@ -1,4 +1,4 @@
-# Markdown directives
+# Markdown Directives
 
 ## About
 

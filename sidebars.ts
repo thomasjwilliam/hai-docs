@@ -16,32 +16,36 @@ const sidebars: SidebarsConfig = {
 
   // But you can create a sidebar manually
   tutorialSidebar: [
-    "intro",
+    // "intro",
+    // // {
+    // //   type: 'category',
+    // //   label: 'Tutorials',
+    // //   items: ['tut-canned-responses'],
+    // // },
     // {
-    //   type: 'category',
-    //   label: 'Tutorials',
-    //   items: ['tut-canned-responses'],
+    //   type: "category",
+    //   label: "Recipes",
+    //   link: {
+    //     type: "doc",
+    //     id: "recipes/index",
+    //   },
+    //   items: [
+    //     "recipes/markdown-to-footnotes",
+    //     "recipes/timezone-converter",
+    //   ],
     // },
     {
       type: "category",
-      label: "Recipes",
+      label: "Reference",
       link: {
         type: "doc",
-        id: "recipes/index",
+        id: "reference/index",
       },
-      items: [
-        "recipes/markdown-to-footnotes",
-        "recipes/timezone-converter",
-      ],
-    },
-    {
-      type: "category",
-      label: "Reference",
       items: [
         "reference/macro-utility-library",
         "reference/markdown-directives",
-			  "reference/snippet",
-				"reference/macro"
+			  // "reference/snippet",
+				// "reference/macro"
 			],
     },
   ],
