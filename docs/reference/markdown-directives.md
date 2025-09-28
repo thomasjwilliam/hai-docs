@@ -195,7 +195,7 @@ Write text, similar to the HTML [textarea](https://developer.mozilla.org/en-US/d
 {{textarea placeholder="Enter text here..." value="Predefined value" cols="20" rows="3"}}
 ```
 
-## Sectioning and informational directives
+## Informational and sectioning directives
 
 ### Note
 
@@ -212,7 +212,7 @@ Write text, similar to the HTML [textarea](https://developer.mozilla.org/en-US/d
 * `action`: `confirm` | `dismiss`
 * `foldable`
 * `title`
-* `type`: `info` (default) | `success` | `warning` | `error`
+* `type`: `info` | `tip` | `success` | `warning` | `error`
 
 **Examples**
 
@@ -232,6 +232,41 @@ Success that can be dismissed.
 {{note type="error" title="That's no good boss" foldable="true"}}
 Something happened.
 {{/note}}
+```
+
+### Section
+
+**Syntax**
+
+```
+{{section ...attributes}}
+... any content comes here
+{{/section}}
+```
+
+**Attributes**
+
+* `action`: `confirm` | `dismiss`
+* `foldable`
+
+**Examples**
+
+```
+{{section}}
+...
+{{/section}}
+```
+
+```
+{{section action="dismiss"}}
+...
+{{/section}}
+```
+
+```
+{{section foldable="true"}}
+...
+{{/section}}
 ```
 
 ## Global directives attributes
