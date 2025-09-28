@@ -1,22 +1,47 @@
 # Markdown directives
 
-## Input
+## About
+
+Directives are special Markdown elements that are used to render content in the document.
+
+## Form directives
+
+### Button
+
+**About**
+
+Perform an action, similar to the HTML [button](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button) element.
+
+**Syntax**
+```
+{{ button ...attributes }}
+```
+
+**Attributes**
+
+* `command`
+* `text`
+
+**Examples**
+
+```
+{{ button text="Click me" placeholder="SomeCommand" }}
+```
+
+### Input
 
 **About**
 
 Input some data, similar to the HTML [input](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input) element.
 
 **Syntax**
-
 ```
 {{ input ...attributes }}
 ```
 
 **Attributes**
 
-* `class`
 * `cols`
-* `id`
 * `placeholder`
 * `type`: `text` (default) | `date` | `datetime-local`
 * `value`
@@ -28,7 +53,7 @@ Input some data, similar to the HTML [input](https://developer.mozilla.org/en-US
 ```
 
 ```
-{{ input type="text" placeholder="Your name" value="J Doe" }}
+{{ input type="text" placeholder="Your name" value="J. Doe" }}
 ```
 
 ```
@@ -39,7 +64,7 @@ Input some data, similar to the HTML [input](https://developer.mozilla.org/en-US
 {{ input type="datetime-local" value="1970-01-01T00:00" }}
 ```
 
-## Select
+### Select
 
 **About**
 
@@ -53,8 +78,6 @@ Select an option, similar to the HTML [select](https://developer.mozilla.org/en-
 
 **Attributes**
 
-* `class`
-* `id`
 * `options`
 * `placeholder`
 * `selected`
@@ -73,7 +96,7 @@ Select an option, similar to the HTML [select](https://developer.mozilla.org/en-
 {{ select options="foo(Foo label),bar(Bar label),baz(Baz label)" selected="bar" }}
 ```
 
-## datalist
+### Datalist
 
 **About**
 
@@ -87,8 +110,6 @@ Filter and/or select an option, similar to the HTML [datalist](https://developer
 
 **Attributes**
 
-* `class`
-* `id`
 * `options`
 * `placeholder`
 * `value`
@@ -103,7 +124,7 @@ Filter and/or select an option, similar to the HTML [datalist](https://developer
 {{ datalist options="foo(Foo label),bar(Bar label),baz(Baz label)" }}
 ```
 
-## Textarea
+### Textarea
 
 **About**
 
@@ -117,9 +138,7 @@ Write text, similar to the HTML [textarea](https://developer.mozilla.org/en-US/d
 
 **Attributes**
 
-* `class`
 * `cols`
-* `id`
 * `value`
 * `placeholder`
 * `rows`
@@ -138,7 +157,9 @@ Write text, similar to the HTML [textarea](https://developer.mozilla.org/en-US/d
 {{ textarea placeholder="Enter text here..." value="Predefined value" cols="20" rows="3" }}
 ```
 
-## Section
+## Sectioning directives
+
+### Section
 
 **About**
 
@@ -155,9 +176,7 @@ whatever
 **Attributes**
 
 * `action`: `confirm` | `dismiss`
-* `class`
 * `foldable`
-* `id`
 * `title`
 * `type`: `section` (default) | `info` | `success` | `warning` | `error`
 
@@ -166,27 +185,28 @@ whatever
 ```
 {{ section start }}
 Look at meeeee! I'm in my own little section.
-
 {{ section end }}
 ```
 
 ```
-{{ section start type="error" title="That's no good boss" }}
-Something happened.
-
+{{ section start type="info" }}
+Information.
 {{ section end }}
 ```
 
 ```
 {{ section start type="success" action="dismiss" }}
 Success that can be dismissed.
-
 {{ section end }}
 ```
 
 ```
-{{ section start type="info" action="dismiss" foldable="true" }}
-Information that can be folded or dismissed.
-
+{{ section start type="error" title="That's no good boss" foldable="true" }}
+Something happened.
 {{ section end }}
 ```
+
+## Global directives attributes
+
+* `class`
+* `id`
