@@ -3,8 +3,8 @@
 ## `hai.doc`
 
 - `getContent(): string`
-- `getDir(att: string, val: string, dir?): string | undefined`
 - `getDirAttValue(dir: string, att: string): string | undefined`
+- `getDirByAttVal(att: string, val: string, dir?): string | undefined`
 - `getDirById(id: string, dir?: string): string | undefined`
 - `getDirs(att: string, val: string, dir?: string): string[]`
 - `getDirsByClass(class: string, dir?: string): string[]`
