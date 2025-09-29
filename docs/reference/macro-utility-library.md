@@ -3,15 +3,15 @@
 ## `hai.doc`
 
 - `getContent(): string`
-- `getDirective(att: string, val: string, dir?): string | undefined`
-- `getDirectiveAttValue(dir: string, att: string): string | undefined`
-- `getDirectiveById(id: string, dir?: string): string | undefined`
-- `getDirectives(att: string, val: string, dir?: string): string[]`
-- `getDirectivesByClass(class: string, dir?: string): string[]`
-- `insertDirectiveAfter(dir: string, refDir: string): void`
-- `insertDirectiveBefore(dir: string, refDir: string): void`
-- `removeDirective(dir: string): void`
-- `removeDirectives(dirs: string[]): void`
-- `replaceDirective(dir: string, refDir: string): void`
+- `getDir(att: string, val: string, dir?): string | undefined`
+- `getDirAttValue(dir: string, att: string): string | undefined`
+- `getDirById(id: string, dir?: string): string | undefined`
+- `getDirs(att: string, val: string, dir?: string): string[]`
+- `getDirsByClass(class: string, dir?: string): string[]`
+- `insertDirAfter(dir: string, targetDir: string): void`
+- `insertDirBefore(dir: string, targetDir: string): void`
+- `removeDir(dir: string): void`
+- `removeDirs(dirs: string[]): void`
+- `replaceDir(dir: string, replacement: string): void`
 - `setContent(content: string): void`
-- `setDirectiveAttValue(dir: string, att: string, val: string): void`
+- `setDirAttValue(dir: string, att: string, val: string): void`
