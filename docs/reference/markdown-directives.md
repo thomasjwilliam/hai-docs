@@ -1,4 +1,4 @@
-# Markdown Directives - Reference
+# Markdown Directives
 
 ## About
 
