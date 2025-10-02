@@ -6,6 +6,21 @@ Custom Markdown syntax to build interactive pages.
 
 ## Form directives
 
+:::tip
+
+Save a directive as a snippet.
+
+Instead of writing it out each time, you can insert it with a click or /SnippetTrigger
+
+For example, imagine a snippet `DatePicker`:
+```
+{{input type="date"}}
+```
+
+Now you can reference `$DatePicker` in other snippets or insert with a /DatePicker.
+
+:::
+
 ### Button
 
 Trigger an action, similar to the HTML [button](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button) element.
@@ -25,6 +40,32 @@ Trigger an action, similar to the HTML [button](https://developer.mozilla.org/en
 
 ```
 {{button text="Click me" trigger="MacroTriggerToRun"}}
+```
+
+### Checkbox
+
+Render a checkbox, similar to the HTML [checkbox](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/checkbox) element.
+
+```
+{{checkbox ...attributes}}
+```
+
+**Attributes**
+* `name` (**required**)
+  * A unique string to define the name of checkbox. If `label` is not defined, this will be rendered as the label.
+* `checked`
+  * if defined, indicates the option is selected. If the checkbox is checked via user interaction, this attribute is set. The attribute does not have a value. Only its attribute name.
+* `label`
+  * if defined, provides the checkbox label
+
+**Examples**
+
+```
+{{checkbox name="foo"}}
+```
+
+```
+{{checkbox name="bar" label="Bar Label" checked}}
 ```
 
 ### Datalist
@@ -107,10 +148,10 @@ Provide an option to the `datalist` or `select` directives, similar to the HTML 
 
 **Attributes**
 
-* `label`
-  * The label to display for the option
 * `value` (**required**)
   * The value of the option
+* `label`
+  * The label to display for the option
 
 **Examples**
 

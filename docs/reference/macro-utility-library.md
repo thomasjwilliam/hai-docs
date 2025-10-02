@@ -46,6 +46,11 @@ A set of handy functions to work with the document and its directives.
 getContent(): string
 ```
 
+### getDirectiveAtt
+```
+getDirectiveAttValue(dir: string, att: string): {name: string; value?: string} | undefined
+```
+
 ### getDirectiveAttValue
 ```
 getDirectiveAttValue(dir: string, att: string): string | undefined
@@ -89,6 +94,11 @@ insertDirectiveBefore(dir: string, targetDir: string): void
 ### removeDirective
 ```
 removeDirective(dir: string): void
+```
+
+### removeDirectiveAtt
+```
+removeDirectiveAtt(dir: string, att: string): void
 ```
 
 ### removeDirectives
