@@ -39,6 +39,8 @@ notify(notification: {
 
 ## hai.doc
 
+A set of handy functions to work with the document and its directives.
+
 ### getContent
 ```
 getContent(): string
@@ -47,11 +49,6 @@ getContent(): string
 ### getDirectiveAttValue
 ```
 getDirectiveAttValue(dir: string, att: string): string | undefined
-```
-
-### getDirectiveByAttVal
-```
-getDirectiveByAttVal(att: string, val: string, dir?): string | undefined
 ```
 
 ### getDirectiveByAttVal
