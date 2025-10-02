@@ -1,91 +1,92 @@
-# Markdown Directives
+# Markdown Directives - Reference
 
 ## About
 
-Directives are custom Markdown elements that are used to render interactive elements in the document.
+Custom Markdown syntax to build interactive pages.
 
 ## Form directives
 
 ### Button
 
-Perform an action, similar to the HTML [button](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button) element.
+Trigger an action, similar to the HTML [button](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button) element.
 
-**Syntax**
 ```
 {{button ...attributes}}
 ```
 
 **Attributes**
 
-* `command`: the macro trigger to run when the button is clicked
-* `text`: the text to display on the button
+* `text` (**required**)
+  * The text to be displayed
+* `trigger` (**required**)
+  * The trigger of the macro to run when the button is clicked.
 
-**Examples**
+**Example**
 
 ```
-{{button text="Click me" command="MacroTrigger"}}
+{{button text="Click me" trigger="MacroTriggerToRun"}}
 ```
 
 ### Datalist
 
-Filter and/or select an option, similar to the HTML [datalist](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/datalist) element.
-
-**Syntax**
+Type to filter and/or select an option, or completely custom input, similar to the HTML [datalist](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/datalist) element.
 
 ```
 {{datalist ...attributes}}
-... with one or more {{option ...attributes}} directives
+  with two or more {{option}} directives
 {{/datalist}}
 ```
 
 **Attributes**
 
-* `name`
 * `placeholder`
+  * The text displayed when there is no value.
 * `value`
+  * The value of the selected option or custom input.
 
-**Examples**
-
-```
-{{datalist}}
-{{option value="foo"}}
-{{option value="bar"}}
-{{option value="baz"}}
-{{/datalist}}
-```
+**Example**
 
 ```
-{{datalist value="bar"}}
-{{option value="foo" label="Foo Label"}}
-{{option value="bar" label="Bar Label"}}
-{{option value="baz" label="Baz Label"}}
+{{datalist placeholder="Your Job Title:"}}
+  {{option value="Software Engineer"}}
+  {{option value="Product Manager"}}
+  {{option value="UX/UI Designer"}}
 {{/datalist}}
 ```
 
 ### Input
 
-Input some data, similar to the HTML [input](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input) element.
+Input some text, similar to the HTML [input](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input) element.
 
-**Syntax**
 ```
 {{input ...attributes}}
 ```
 
 **Attributes**
 
-* `cols`: the number of columns to define the width
+* `cols`
+  * The number of characters to set the width of the input, `auto` to set the width to 100% of the document.
+  * Value: number | `auto`
+  * Default: `12`
 * `placeholder`
-* `type`: `text` (default) | `date` | `datetime-local`
+  * The text displayed when there is no value.
+* `type`
+  * Value: `text` | `date` | `datetime-local`
+  * Default: `text`
 * `value`
 
 **Examples**
 
 ```
-{{input type="text" placeholder="Your name"}}
+{{input}}
 ```
 
 ```
-{{input type="text" placeholder="Your name" value="J. Doe"}}
+{{input type="text" placeholder="Write..."}}
+```
+
+```
+{{input type="text" placeholder="Write..." value="Hello world!" cols="auto"}}
 ```
 
 ```
@@ -100,15 +101,16 @@ Input some data, similar to the HTML [input](https://developer.mozilla.org/en-US
 
 Provide an option to the `datalist` or `select` directives, similar to the HTML [option](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/option) element.
 
-**Syntax**
 ```
 {{option ...attributes}}
 ```
 
 **Attributes**
 
-* `label`: the label to display for the option
-* `value`
+* `label`
+  * The label to display for the option
+* `value` (**required**)
+  * The value of the option
 
 **Examples**
 
@@ -124,43 +126,35 @@ Provide an option to the `datalist` or `select` directives, similar to the HTML 
 
 Select an option, similar to the HTML [select](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/select) element.
 
-**Syntax**
-
 ```
 {{select ...attributes}}
-... with one or more {{option ...attributes}} directives
+  with two or more {{option}} directives
 {{/select}}
 ```
 
 **Attributes**
 
-* `name`
 * `placeholder`
+  * The text displayed when there is no value.
 * `value`
+  * The value of the selected option.
 
 **Examples**
 
 ```
-{{select}}
-{{option value="foo"}}
-{{option value="bar"}}
-{{option value="baz"}}
+{{select placeholder="Select a T-shirt size:"}}
+  {{option value="s" label="Small"}}
+  {{option value="m" label="Medium"}}
+  {{option value="l" label="Large"}}
+  {{option value="xl" label="Extra Large"}}
 {{/select}}
 ```
 
 ```
-{{select}}
-{{option value="foo" label="Foo Label"}}
-{{option value="bar" label="Bar Label"}}
-{{option value="baz" label="Baz Label"}}
-{{/select}}
-```
-
-```
-{{select value="bar"}}
-{{option value="foo" label="Foo Label"}}
-{{option value="bar" label="Bar Label"}}
-{{option value="baz" label="Baz Label"}}
+{{select placeholder="Notification Frequency" value="Weekly"}}
+  {{option value="Daily"}}
+  {{option value="Weekly"}}
+  {{option value="Monthly"}}
 {{/select}}
 ```
 
@@ -168,108 +162,126 @@ Select an option, similar to the HTML [select](https://developer.mozilla.org/en-
 
 Write text, similar to the HTML [textarea](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea) element.
 
-**Syntax**
-
 ```
 {{textarea ...attributes}}
 ```
 
 **Attributes**
 
-* `cols`the number of columns to define the width
-* `value`
-* `placeholder`
 * `rows`
+  * The height of the textarea.
+  * Value: `auto` | number
+  * Default: `auto`
+* `placeholder`
+  * The text displayed when there is no value
+* `rows`
+  * The number of characters to set the width of the textarea.
+  * Value: number
+  * Default: `3`
+* `value`
+  * The textarea input.
 
 **Examples**
 
 ```
-{{textarea cols="20" rows="3"}}
+{{textarea}}
 ```
 
 ```
-{{textarea placeholder="Enter text here..." cols="20" rows="3"}}
+{{textarea placeholder="Write..."}}
 ```
 
 ```
-{{textarea placeholder="Enter text here..." value="Predefined value" cols="20" rows="3"}}
+{{textarea placeholder="Write..." value="Hello world!"}}
+```
+
+```
+{{textarea placeholder="Write..." cols="60" rows="6"}}
 ```
 
 ## Informational and sectioning directives
 
 ### Note
 
-**Syntax**
+Provides an note.
 
 ```
 {{note ...attributes}}
-... any content comes here
+  any content
 {{/note}}
 ```
 
 **Attributes**
 
-* `action`: `confirm` | `dismiss`
+* `action`
+  * When defined, adds a button to `confirm` or `dimiss` the note. When confirmed, its contents will be unwrapped and replace the note. If dismissed, the entire note will be removed.
+  * Value: `confirm` | `dismiss`
 * `foldable`
+  * When defined, adds a button to fold and unfold the note.
 * `title`
-* `type`: `info` | `tip` | `success` | `warning` | `error`
+  * The title of the note.
+* `type`
+  * Value: `info` | `tip` | `success` | `warning` | `error`
 
 **Examples**
 
 ```
-{{note type="info"}}
-Information.
+{{note}}
+  Simple note.
+{{/note}}
+```
+
+```
+{{note type="info" foldable="true"}}
+  Informational note that can be folded.
 {{/note}}
 ```
 
 ```
 {{note type="success" action="dismiss"}}
-Success that can be dismissed.
+  Success that can be dismissed.
 {{/note}}
 ```
 
 ```
-{{note type="error" title="That's no good boss" foldable="true"}}
-Something happened.
+{{note type="error" title="That's no good boss"}}
+  Something happened.
 {{/note}}
 ```
 
 ### Section
 
-**Syntax**
-
 ```
 {{section ...attributes}}
-... any content comes here
+  any content
 {{/section}}
 ```
 
 **Attributes**
 
-* `action`: `confirm` | `dismiss`
+* `action`
+  * When defined, adds a button to `confirm` or `dimiss` the section. When confirmed, its contents will be unwrapped and replace the section. If dismissed, the entire section will be removed.
+  * Value: `confirm` | `dismiss`
 * `foldable`
+  * When defined, adds a button to fold and unfold the note.
+* `background-color`
+  * Provides a slight grey background color (and negative margin) to provide visual separation.
 
-**Examples**
-
-```
-{{section}}
-...
-{{/section}}
-```
+**Example**
 
 ```
-{{section action="dismiss"}}
-...
-{{/section}}
-```
-
-```
-{{section foldable="true"}}
-...
+{{section action="dismiss" foldable="true" background-color}}
+#### This section can be:
+- folded, or
+- dismissed
 {{/section}}
 ```
 
 ## Global directives attributes
 
 * `class`
+  * The class attribute assigns a directive to a named group, acting as a selector to programmatically target and manipulate a set of directives with the [`hai.doc` utility library](https://thomasjwilliam.github.io/hai-docs/docs/reference/macro-utility-library/).
+  * Value: one or more names separated by whitespace.
 * `id`
+  * The id attribute provides a completely unique identifier for a single element within a document that can be targetted and manipulated with the [`hai.doc` utility library](https://thomasjwilliam.github.io/hai-docs/docs/reference/macro-utility-library/).
+  * Value: a single unique name.
