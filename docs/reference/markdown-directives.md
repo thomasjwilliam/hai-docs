@@ -194,7 +194,7 @@ Provide an option to the `datalist` or `select` directives, similar to the HTML 
 
 ### Radio
 
-Select a single option within a group of options, similar to the HTML [<input type="radio">](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/radio) element.
+Select a single option within a group of options, similar to the HTML [input type="radio"](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/radio) element.
 
 **Syntax**
 
