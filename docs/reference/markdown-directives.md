@@ -79,7 +79,7 @@ Used to group a set of checkboxes, mostly for styling purposes.
 
 **Attributes**
 * `column`
-  * if defined, will display all checkboxes under each other.
+  * if defined, will display all checkboxes underneath each other.
 
 **Examples**
 
@@ -206,6 +206,8 @@ Select a single option within a group of options, similar to the HTML [input typ
 
 **Attributes**
 
+* `column`
+  * if defined, will display all radio options underneath each other.
 * `name`
   * A unique string to define the radio group
 * `value`
