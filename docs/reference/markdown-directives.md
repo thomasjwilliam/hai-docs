@@ -41,59 +41,46 @@ Trigger an action, similar to the HTML [button](https://developer.mozilla.org/en
 {{button text="Click me" trigger="MacroTriggerToRun"}}
 ```
 
-### Checkbox
-
-Render a checkbox, similar to the HTML [checkbox](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/checkbox) element.
-
-```
-{{checkbox ...attributes}}
-```
-
-**Attributes**
-* `name` (**required**)
-  * A unique string to define the name of checkbox. If `label` is not defined, this will be rendered as the label.
-* `checked`
-  * if defined, indicates the option is selected. If the checkbox is checked via user interaction, this attribute is set. The attribute does not have a value. Only its attribute name.
-* `label`
-  * if defined, provides the checkbox label
-
-**Examples**
-
-```
-{{checkbox name="foo"}}
-```
-
-```
-{{checkbox name="bar" label="Bar Label" checked}}
-```
-
 ### Checkbox group
 
-Used to group a set of checkboxes, mostly for styling purposes.
+The checkbox-group directive renders one or more child options as checkboxes. These checkboxes can be individually toggled, just as an HTML checkbox.
+
+**Syntax**
 
 ```
-{{checkbox-group ...attributes}}
-  two or more {{checkbox ...attributes}} directives
+{{checkbox-group}}
+  one or more {{option ...attributes}}
 {{/checkbox-group}}
 ```
 
 **Attributes**
+
+* `class`
+  * The class attribute assigns a directive to a named group
+  * Value: one or more names separated by whitespace.
+* `id`
+  * The id attribute provides a completely unique identifier for a single element within a document
+  * Value: a single unique name.
 * `column`
   * if defined, will display all checkboxes underneath each other.
+* `value`
+  * a comma-separated list of checked checkboxes value. Commas within values will be escaped by the system.
 
 **Examples**
 
 ```
 {{checkbox-group}}
-  {{checkbox name="foo"}}
-  {{checkbox name="bar" label="Bar Label"}}
+  {{option value="foo"}}
+  {{option value="bar" label="Bar Label"}}
+  {{option value="baz"}}
 {{/checkbox-group}}
 ```
 
 ```
-{{checkbox-group column}}
- {{checkbox name="foo"}}
- {{checkbox name="bar" label="Bar Label"}}
+{{checkbox-group value="foo,baz"}}
+  {{option value="foo"}}
+  {{option value="bar" label="Bar Label"}}
+  {{option value="baz"}}
 {{/checkbox-group}}
 ```
 
@@ -169,7 +156,7 @@ Input some text, similar to the HTML [input](https://developer.mozilla.org/en-US
 
 ### Option
 
-Provide an option to the `datalist` or `select` directives, similar to the HTML [option](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/option) element.
+Provide an option to the `checkbox-group`, `datalist`, `radio-group` or `select` directives, similar to the HTML [option](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/option) element.
 
 ```
 {{option ...attributes}}
@@ -192,43 +179,41 @@ Provide an option to the `datalist` or `select` directives, similar to the HTML 
 {{option value="bar" label="Bar label"}}
 ```
 
-### Radio
+### Radio group
 
 Select a single option within a group of options, similar to the HTML [input type="radio"](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/radio) element.
 
 **Syntax**
 
 ```
-{{radio ...attributes}}
-  One or more {{option}} directives
-{{/radio}}
+{{radio-group}}
+  two or more {{option ...attributes}}
+{{/radio-group}}
 ```
 
 **Attributes**
 
 * `column`
-  * if defined, will display all radio options underneath each other.
-* `name`
-  * A unique string to define the radio group
+  * if defined, will display all radios underneath each other.
 * `value`
-  * The value of the selected option.
+  * the value of the selected radio option. Any Commas within the value will be escaped by the system.
 
 **Examples**
 
 ```
-{{radio}}
+{{radio-group}}
   {{option value="foo”}}
   {{option value=“bar” label=“Bar Label”}}
   {{option value=“baz”}}
-{{/radio}}
+{{/radio-group}}
 ```
 
 ```
-{{radio value=“bar”}}
+{{radio-group value=“bar”}}
   {{option value=“foo”}}
   {{option value=“bar” label=“Bar Label”}}
   {{option value=“baz”}}
-{{/radio}}
+{{/radio-group}}
 ```
 
 ### Select
@@ -237,7 +222,7 @@ Select an option, similar to the HTML [select](https://developer.mozilla.org/en-
 
 ```
 {{select ...attributes}}
-  with two or more {{option}} directives
+  two or more {{option}} directives
 {{/select}}
 ```
 
