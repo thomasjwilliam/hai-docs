@@ -10,8 +10,7 @@ Custom Markdown syntax to build interactive pages.
 
 Save a directive as a snippet.
 
-Instead of writing it out each time, you can insert it with a click or /SnippetTrigger
-
+Instead of writing it out each time, you can insert it with a click or /SnippetTrigger.\
 For example, imagine a snippet `DatePicker`:
 ```
 {{input type="date"}}
@@ -66,6 +65,36 @@ Render a checkbox, similar to the HTML [checkbox](https://developer.mozilla.org/
 
 ```
 {{checkbox name="bar" label="Bar Label" checked}}
+```
+
+### Checkbox group
+
+Used to group a set of checkboxes, mostly for styling purposes.
+
+```
+{{checkbox-group ...attributes}}
+  two or more {{checkbox ...attributes}} directives
+{{/checkbox-group}}
+```
+
+**Attributes**
+* `column`
+  * if defined, will display all checkboxes under each other.
+
+**Examples**
+
+```
+{{checkbox-group}}
+  {{checkbox name="foo"}}
+  {{checkbox name="bar" label="Bar Label"}}
+{{/checkbox-group}}
+```
+
+```
+{{checkbox-group column}}
+ {{checkbox name="foo"}}
+ {{checkbox name="bar" label="Bar Label"}}
+{{/checkbox-group}}
 ```
 
 ### Datalist
@@ -161,6 +190,43 @@ Provide an option to the `datalist` or `select` directives, similar to the HTML 
 
 ```
 {{option value="bar" label="Bar label"}}
+```
+
+### Radio
+
+Select a single option within a group of options, similar to the HTML [<input type="radio">](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/radio) element.
+
+**Syntax**
+
+```
+{{radio ...attributes}}
+  One or more {{option}} directives
+{{/radio}}
+```
+
+**Attributes**
+
+* `name`
+  * A unique string to define the radio group
+* `value`
+  * The value of the selected option.
+
+**Examples**
+
+```
+{{radio}}
+  {{option value="foo”}}
+  {{option value=“bar” label=“Bar Label”}}
+  {{option value=“baz”}}
+{{/radio}}
+```
+
+```
+{{radio value=“bar”}}
+  {{option value=“foo”}}
+  {{option value=“bar” label=“Bar Label”}}
+  {{option value=“baz”}}
+{{/radio}}
 ```
 
 ### Select
