@@ -55,12 +55,6 @@ The checkbox-group directive renders one or more child options as checkboxes. Th
 
 **Attributes**
 
-* `class`
-  * The class attribute assigns a directive to a named group
-  * Value: one or more names separated by whitespace.
-* `id`
-  * The id attribute provides a completely unique identifier for a single element within a document
-  * Value: a single unique name.
 * `column`
   * if defined, will display all checkboxes underneath each other.
 * `value`
