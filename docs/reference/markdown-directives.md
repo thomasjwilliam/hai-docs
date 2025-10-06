@@ -196,17 +196,17 @@ Select a single option within a group of options, similar to the HTML [input typ
 
 ```
 {{radio-group}}
-  {{option value="foo”}}
-  {{option value=“bar” label=“Bar Label”}}
-  {{option value=“baz”}}
+  {{option value="foo"}}
+  {{option value=“bar" label=“Bar Label"}}
+  {{option value=“baz"}}
 {{/radio-group}}
 ```
 
 ```
-{{radio-group value=“bar”}}
-  {{option value=“foo”}}
-  {{option value=“bar” label=“Bar Label”}}
-  {{option value=“baz”}}
+{{radio-group value=“bar"}}
+  {{option value=“foo"}}
+  {{option value=“bar" label=“Bar Label"}}
+  {{option value=“baz"}}
 {{/radio-group}}
 ```
 
@@ -304,8 +304,12 @@ Provides an note.
 * `action`
   * When defined, adds a button to `confirm` or `dimiss` the note. When confirmed, its contents will be unwrapped and replace the note. If dismissed, the entire note will be removed.
   * Value: `confirm` | `dismiss`
-* `foldable`
-  * When defined, adds a button to fold and unfold the note.
+* `collapsible`
+  * When defined, adds a button to collapse (fold) and expand (unfold) the note.
+* `confirmable`
+  * When defined, adds a button to confirm which will unwrap the note contents and replace it with those contents.
+* `dismissable`
+  * When defined, adds a button to dismiss the entire note, disregarding its contents.
 * `title`
   * The title of the note.
 * `type`
@@ -320,13 +324,13 @@ Provides an note.
 ```
 
 ```
-{{note type="info" foldable="true"}}
+{{note type="info"}}
   Informational note that can be folded.
 {{/note}}
 ```
 
 ```
-{{note type="success" action="dismiss"}}
+{{note type="success"}}
   Success that can be dismissed.
 {{/note}}
 ```
@@ -334,6 +338,12 @@ Provides an note.
 ```
 {{note type="error" title="That's no good boss"}}
   Something happened.
+{{/note}}
+```
+
+```
+{{note collapsible confirmable dismissable}}
+  ...
 {{/note}}
 ```
 
@@ -350,18 +360,20 @@ Provides an note.
 * `action`
   * When defined, adds a button to `confirm` or `dimiss` the section. When confirmed, its contents will be unwrapped and replace the section. If dismissed, the entire section will be removed.
   * Value: `confirm` | `dismiss`
-* `foldable`
-  * When defined, adds a button to fold and unfold the note.
-* `background-color`
+* `collapsible`
+  * When defined, adds a button to collapse (fold) and expand (unfold) the section.
+* `confirmable`
+  * When defined, adds a button to confirm which will unwrap the section contents and replace it with those contents.
+* `dismissable`
+  * When defined, adds a button to dismiss the entire section, disregarding its contents.
+* `shaded`
   * Provides a slight grey background color (and negative margin) to provide visual separation.
 
 **Example**
 
 ```
-{{section action="dismiss" foldable="true" background-color}}
-#### This section can be:
-- folded, or
-- dismissed
+{{section collapsible confirmable dismissable shaded}}
+  ...
 {{/section}}
 ```
 
