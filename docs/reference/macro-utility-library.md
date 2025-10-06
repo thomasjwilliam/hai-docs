@@ -48,12 +48,12 @@ getContent(): string
 
 ### getDirectiveAtt
 ```
-getDirectiveAttValue(dir: string, att: string): {name: string; value?: string} | undefined
+getDirectiveAtt(dir: string, att: string): {name: string; value?: string} | undefined
 ```
 
-### getDirectiveAttValue
+### getDirectiveAttVal
 ```
-getDirectiveAttValue(dir: string, att: string): string | undefined
+getDirectiveAttVal(dir: string, att: string): string | undefined
 ```
 
 ### getDirectiveByAttVal
@@ -116,9 +116,9 @@ replaceDirective(dir: string, replacement: string): void
 setContent(content: string): void
 ```
 
-### setDirectiveAttValue
+### setDirectiveAttVal
 ```
-setDirectiveAttValue(dir: string, att: string, val: string): void
+setDirectiveAttVal(dir: string, att: string, val: string): void
 ```
 
 ### setTitle
