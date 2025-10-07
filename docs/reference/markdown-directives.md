@@ -22,7 +22,7 @@ Now you can reference `$DatePicker` in other snippets or insert with a /DatePick
 
 ### Button
 
-Trigger an action, similar to the HTML [button](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button) element.
+Trigger an action onclick, similar to the HTML [button](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button) element.
 
 ```
 {{button ...attributes}}
@@ -30,20 +30,21 @@ Trigger an action, similar to the HTML [button](https://developer.mozilla.org/en
 
 **Attributes**
 
-* `text` (**required**)
-  * The text to be displayed
-* `trigger` (**required**)
-  * The trigger of the macro to run when the button is clicked.
+`onclick` **required**\
+The trigger of a snippet (to inject) or macro (to run), prefixed with the `$` dollar sign.
+
+`text` **required**\
+The text to be displayed
 
 **Example**
 
 ```
-{{button text="Click me" trigger="MacroTriggerToRun"}}
+{{button onclick="$MacroTriggerToRun" text="Click me"}}
 ```
 
 ### Checkbox group
 
-The checkbox-group directive renders one or more child options as checkboxes. These checkboxes can be individually toggled, just as an HTML checkbox.
+The checkbox-group directive renders one or more child options as checkboxes. These checkboxes can be individually toggled, similar to the HTML [checkbox](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/checkbox) element.
 
 **Syntax**
 
@@ -55,10 +56,11 @@ The checkbox-group directive renders one or more child options as checkboxes. Th
 
 **Attributes**
 
-* `column`
-  * if defined, will display all checkboxes underneath each other.
-* `value`
-  * a comma-separated list of checked checkboxes value. Commas within values will be escaped by the system.
+`column`\
+If defined, will display all checkboxes underneath each other.
+
+`value`\
+A comma-separated list of checked checkboxes value. Commas within values will be escaped by the system.
 
 **Examples**
 
@@ -71,7 +73,7 @@ The checkbox-group directive renders one or more child options as checkboxes. Th
 ```
 
 ```
-{{checkbox-group value="foo,baz"}}
+{{checkbox-group value="foo,baz" column}}
   {{option value="foo"}}
   {{option value="bar" label="Bar Label"}}
   {{option value="baz"}}
@@ -90,10 +92,11 @@ Type to filter and/or select an option, or completely custom input, similar to t
 
 **Attributes**
 
-* `placeholder`
-  * The text displayed when there is no value.
-* `value`
-  * The value of the selected option or custom input.
+`placeholder`\
+The text displayed when there is no value.
+
+`value`\
+The value of the selected option or custom input.
 
 **Example**
 
@@ -115,16 +118,18 @@ Input some text, similar to the HTML [input](https://developer.mozilla.org/en-US
 
 **Attributes**
 
-* `cols`
-  * The number of characters to set the width of the input, `auto` to set the width to 100% of the document.
-  * Value: number | `auto`
-  * Default: `12`
-* `placeholder`
-  * The text displayed when there is no value.
-* `type`
-  * Value: `text` | `date` | `datetime-local`
-  * Default: `text`
-* `value`
+`cols`\
+A positive integer (default: `12`) or `auto` representing the visible width of the textarea, in average character widths.\
+The value `auto` will set the width to 100% of the document.
+
+`placeholder`\
+The text displayed when there is no value.
+
+`type`\
+Possible values: `text` (default) | `date` | `datetime-local`
+
+`value`\
+The value of the input.
 
 **Examples**
 
@@ -137,7 +142,7 @@ Input some text, similar to the HTML [input](https://developer.mozilla.org/en-US
 ```
 
 ```
-{{input type="text" placeholder="Write..." value="Hello world!" cols="auto"}}
+{{input type="text" cols="auto" placeholder="Write..." value="Hello world!"}}
 ```
 
 ```
@@ -158,10 +163,11 @@ Provide an option to the `checkbox-group`, `datalist`, `radio-group` or `select`
 
 **Attributes**
 
-* `value` (**required**)
-  * The value of the option
-* `label`
-  * The label to display for the option
+`value` **required**\
+The value of the option
+
+`label`\
+The label to display for the option
 
 **Examples**
 
@@ -187,10 +193,11 @@ Select a single option within a group of options, similar to the HTML [input typ
 
 **Attributes**
 
-* `column`
-  * if defined, will display all radios underneath each other.
-* `value`
-  * the value of the selected radio option. Any Commas within the value will be escaped by the system.
+`column`\
+If defined, will display all radios underneath each other.
+
+`value`\
+The value of the selected radio option. Any Commas within the value will be escaped by the system.
 
 **Examples**
 
@@ -203,7 +210,7 @@ Select a single option within a group of options, similar to the HTML [input typ
 ```
 
 ```
-{{radio-group value=“bar"}}
+{{radio-group value=“bar" column}}
   {{option value=“foo"}}
   {{option value=“bar" label=“Bar Label"}}
   {{option value=“baz"}}
@@ -222,10 +229,11 @@ Select an option, similar to the HTML [select](https://developer.mozilla.org/en-
 
 **Attributes**
 
-* `placeholder`
-  * The text displayed when there is no value.
-* `value`
-  * The value of the selected option.
+`placeholder`\
+The text displayed when there is no value.
+
+`value`\
+The value of the selected option.
 
 **Examples**
 
@@ -256,18 +264,17 @@ Write text, similar to the HTML [textarea](https://developer.mozilla.org/en-US/d
 
 **Attributes**
 
-* `rows`
-  * The height of the textarea.
-  * Value: `auto` | number
-  * Default: `auto`
-* `placeholder`
-  * The text displayed when there is no value
-* `rows`
-  * The number of characters to set the width of the textarea.
-  * Value: number
-  * Default: `3`
-* `value`
-  * The textarea input.
+`cols`\
+A positive integer (default: `3`) representing the visible width of the textarea, in average character widths.
+
+`placeholder`\
+The text displayed when there is no value
+
+`rows`\
+A positive integer or `auto` (default) representing the visible height of the textarea.
+
+`value`\
+The textarea input.
 
 **Examples**
 
@@ -291,7 +298,7 @@ Write text, similar to the HTML [textarea](https://developer.mozilla.org/en-US/d
 
 ### Note
 
-Provides an note.
+Render a note.
 
 ```
 {{note ...attributes}}
@@ -301,19 +308,21 @@ Provides an note.
 
 **Attributes**
 
-* `action`
-  * When defined, adds a button to `confirm` or `dimiss` the note. When confirmed, its contents will be unwrapped and replace the note. If dismissed, the entire note will be removed.
-  * Value: `confirm` | `dismiss`
-* `collapsible`
-  * When defined, adds a button to collapse (fold) and expand (unfold) the note.
-* `confirmable`
-  * When defined, adds a button to confirm which will unwrap the note contents and replace it with those contents.
-* `dismissable`
-  * When defined, adds a button to dismiss the entire note, disregarding its contents.
-* `title`
-  * The title of the note.
-* `type`
-  * Value: `info` | `tip` | `success` | `warning` | `error`
+
+`collapsible`\
+When defined, adds a button to collapse (fold) and expand (unfold) the note.
+
+`confirmable`\
+When defined, adds a button to confirm which will unwrap the note contents and replace it with those contents.
+
+`dismissable`\
+When defined, adds a button to dismiss the entire note, disregarding its contents.
+
+`title`\
+The title of the note.
+
+`type`\
+Value: `info` | `tip` | `success` | `warning` | `error`
 
 **Examples**
 
@@ -357,17 +366,17 @@ Provides an note.
 
 **Attributes**
 
-* `action`
-  * When defined, adds a button to `confirm` or `dimiss` the section. When confirmed, its contents will be unwrapped and replace the section. If dismissed, the entire section will be removed.
-  * Value: `confirm` | `dismiss`
-* `collapsible`
-  * When defined, adds a button to collapse (fold) and expand (unfold) the section.
-* `confirmable`
-  * When defined, adds a button to confirm which will unwrap the section contents and replace it with those contents.
-* `dismissable`
-  * When defined, adds a button to dismiss the entire section, disregarding its contents.
-* `shaded`
-  * Provides a slight grey background color (and negative margin) to provide visual separation.
+`collapsible`\
+When defined, adds a button to collapse (fold) and expand (unfold) the section.
+
+`confirmable`\
+When defined, adds a button to confirm which will unwrap the section contents and replace it with those contents.
+
+`dismissable`\
+When defined, adds a button to dismiss the entire section, disregarding its contents.
+
+`shaded`\
+Provides a slight grey background color (and negative margin) to provide visual separation.
 
 **Example**
 
@@ -379,9 +388,8 @@ Provides an note.
 
 ## Global directives attributes
 
-* `class`
-  * The class attribute assigns a directive to a named group, acting as a selector to programmatically target and manipulate a set of directives with the [`hai.doc` utility library](https://thomasjwilliam.github.io/hai-docs/docs/reference/macro-utility-library/).
-  * Value: one or more names separated by whitespace.
-* `id`
-  * The id attribute provides a completely unique identifier for a single element within a document that can be targetted and manipulated with the [`hai.doc` utility library](https://thomasjwilliam.github.io/hai-docs/docs/reference/macro-utility-library/).
-  * Value: a single unique name.
+`class`
+A [set of space-separated tokens](https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#set-of-space-separated-tokens) that represents the various classes the directive belongs to, helpful for targeting them in macro scripts using the hai.doc utility library.
+
+`id`
+A completely unique identifier for a single element within a document, helpful for targeting them in macro scripts using the hai.doc utility library.
