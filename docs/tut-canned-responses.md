@@ -13,7 +13,7 @@ And what they want is not available - however simple it appears to them - there 
 
 Whether it's search, another feature or maybe a bug, we need to inform and respond to the customer that this we acknowledge their concern.
 
-[Open Hai](https://thomasjwilliam.github.io/hai-pub/#/compose)
+[Open HAI](https://thomasjwilliam.github.io/hai-pub/#/compose)
 
 In the library, click the link `Save a snippet of text` and provide (or copy) the following information:
 
