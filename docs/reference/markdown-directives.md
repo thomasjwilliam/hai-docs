@@ -204,16 +204,16 @@ The value of the selected radio option. Any Commas within the value will be esca
 ```
 {{radio-group}}
   {{option value="foo"}}
-  {{option value=“bar" label=“Bar Label"}}
-  {{option value=“baz"}}
+  {{option value="bar" label="Bar Label"}}
+  {{option value="baz"}}
 {{/radio-group}}
 ```
 
 ```
-{{radio-group value=“bar" column}}
-  {{option value=“foo"}}
-  {{option value=“bar" label=“Bar Label"}}
-  {{option value=“baz"}}
+{{radio-group value="bar" column}}
+  {{option value="foo"}}
+  {{option value="bar" label="Bar Label"}}
+  {{option value="baz"}}
 {{/radio-group}}
 ```
 
