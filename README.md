@@ -1,4 +1,4 @@
-# Hai documentation
+# HAI documentation
 
 [Coming soon](https://thomasjwilliam.github.io/hai-docs/)...
 
