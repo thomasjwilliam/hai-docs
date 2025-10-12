@@ -358,7 +358,7 @@ Value: `info` | `tip` | `success` | `warning` | `error`
 ```
 
 ```
-{{note collapsible confirmable dismissable}}
+{{note collapse commit dismiss}}
   ...
 {{/note}}
 ```
@@ -388,7 +388,7 @@ Provides a slight grey background color (and negative margin) to provide visual 
 **Example**
 
 ```
-{{section collapsible confirmable dismissable shaded}}
+{{section collapse commit dismiss shaded}}
   ...
 {{/section}}
 ```
