@@ -122,6 +122,10 @@ Input some text, similar to the HTML [input](https://developer.mozilla.org/en-US
 A positive integer (default: `12`) or `auto` representing the visible width of the textarea, in average character widths.\
 The value `auto` will set the width to 100% of the document.
 
+`commit`\
+Only applicable to text input.\
+When defined, any value entered will instantly replace the input field with the given value. Helpful for quick input.
+
 `placeholder`\
 The text displayed when there is no value.
 
@@ -267,6 +271,9 @@ Write text, similar to the HTML [textarea](https://developer.mozilla.org/en-US/d
 `cols`\
 A positive integer (default: `3`) representing the visible width of the textarea, in average character widths.
 
+`commit`\
+When defined, any value entered will instantly replace the textarea with the given value. Helpful for quick input.
+
 `placeholder`\
 The text displayed when there is no value
 
@@ -309,14 +316,14 @@ Render a note.
 **Attributes**
 
 
-`collapsible`\
+`collapse`\
 When defined, adds a button to collapse (fold) and expand (unfold) the note.
 
-`confirmable`\
-When defined, adds a button to confirm which will unwrap the note contents and replace it with those contents.
+`commit`\
+When defined, adds a button to replace the note with its content.
 
-`dismissable`\
-When defined, adds a button to dismiss the entire note, disregarding its contents.
+`dismiss`\
+When defined, adds a button to dismiss the note and remove its content.
 
 `title`\
 The title of the note.
@@ -366,14 +373,14 @@ Value: `info` | `tip` | `success` | `warning` | `error`
 
 **Attributes**
 
-`collapsible`\
+`collapse`\
 When defined, adds a button to collapse (fold) and expand (unfold) the section.
 
-`confirmable`\
-When defined, adds a button to confirm which will unwrap the section contents and replace it with those contents.
+`commit`\
+When defined, adds a button to replace the section with its content.
 
-`dismissable`\
-When defined, adds a button to dismiss the entire section, disregarding its contents.
+`dismiss`\
+When defined, adds a button to dismiss the section and remove its content.
 
 `shaded`\
 Provides a slight grey background color (and negative margin) to provide visual separation.
