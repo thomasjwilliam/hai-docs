@@ -36,6 +36,10 @@ The trigger of a snippet (to inject) or macro (to run), prefixed with the `$` do
 `text` **required**\
 The text to be displayed
 
+`color`\
+The color of the button. Default: `primary`\
+Possible values: `primary` | `secondary` | `accent` | `success` | `warning` | `error`
+
 **Example**
 
 ```
