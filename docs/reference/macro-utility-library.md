@@ -103,21 +103,21 @@ Represents a directive in the document, providing methods to read and manipulate
 **Example**
 
 ```javascript
-// Given a directive string: '{{note id="some-id" dismissable}}...{{/note}}'
+// Given a directive string: '{{note id="some-id" dismiss}}...{{/note}}'
 const dir = doc.getDirectiveById('some-id');
 
 // Getting attributes
 console.log(dir.id); // Outputs: 'some-id'
-console.log(dir.dismissable); // Outputs: true (for value-less attributes)
+console.log(dir.dismiss); // Outputs: true (for value-less attributes)
 
 // Setting an attribute
-dir.class = 'some-class'; // Updates the directive to '{{note class="some-class" id="some-id" dismissable}}...{{/note}}}}'
+dir.class = 'some-class'; // Updates the directive to '{{note class="some-class" id="some-id" dismiss}}...{{/note}}}}'
 
 // Adding a value-less attribute
-dir.confirmable = true; // Updates the directive to '{{... confirmable dismissable}}'
+dir.commit = true; // Updates the directive to '{{note class="some-class" id="some-id" commit dismiss}}...{{/note}}}}'
 
 // Removing an attribute
-delete dir.id; // Updates the directive to '{{note dismissable}}...{{/note}}'
+delete dir.id; // Updates the directive to '{{note class="some-class" commit dismiss}}...{{/note}}}}'
 ```
 
 ### Properties
