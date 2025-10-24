@@ -319,15 +319,14 @@ Render a note.
 
 **Attributes**
 
-
-`collapse`\
-When defined, adds a button to collapse (fold) and expand (unfold) the note.
-
 `commit`\
 When defined, adds a button to replace the note with its content.
 
-`dismiss`\
-When defined, adds a button to dismiss the note and remove its content.
+`fold`\
+When defined, adds a button to fold (and unfold) the note.
+
+`remove`\
+When defined, adds a button to remove the note and remove its content.
 
 `title`\
 The title of the note.
@@ -344,14 +343,14 @@ Value: `info` | `tip` | `success` | `warning` | `error`
 ```
 
 ```
-{{note type="info"}}
+{{note type="info" fold}}
   Informational note that can be folded.
 {{/note}}
 ```
 
 ```
 {{note type="success"}}
-  Success that can be dismissed.
+  Success that can be removeed.
 {{/note}}
 ```
 
@@ -362,29 +361,29 @@ Value: `info` | `tip` | `success` | `warning` | `error`
 ```
 
 ```
-{{note collapse commit dismiss}}
+{{note commit fold remove}}
   ...
 {{/note}}
 ```
 
-### Section
+### Div
 
 ```
-{{section ...attributes}}
+{{div ...attributes}}
   any content
-{{/section}}
+{{/div}}
 ```
 
 **Attributes**
 
-`collapse`\
-When defined, adds a button to collapse (fold) and expand (unfold) the section.
-
 `commit`\
-When defined, adds a button to replace the section with its content.
+When defined, adds a button to replace the div with its content.
 
-`dismiss`\
-When defined, adds a button to dismiss the section and remove its content.
+`fold`\
+When defined, adds a button to fold (and unfold) the div.
+
+`remove`\
+When defined, adds a button to remove the div and remove its content.
 
 `shaded`\
 Provides a slight grey background color (and negative margin) to provide visual separation.
@@ -392,9 +391,9 @@ Provides a slight grey background color (and negative margin) to provide visual 
 **Example**
 
 ```
-{{section collapse commit dismiss shaded}}
+{{div fold commit remove shaded}}
   ...
-{{/section}}
+{{/div}}
 ```
 
 ## Global directives attributes

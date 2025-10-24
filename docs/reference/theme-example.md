@@ -1,6 +1,10 @@
 # Theme example
 
 ```css
+:root {
+    --border-radius: 4px;
+}
+
 :root[data-theme="light"] {
     --color-text: oklch(23.82% 0.002 197.06);
 
