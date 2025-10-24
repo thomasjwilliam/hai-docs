@@ -44,8 +44,9 @@ const sidebars: SidebarsConfig = {
       items: [
         "reference/macro-utility-library",
         "reference/markdown-directives",
-        "reference/theme-tailwind",
+        "reference/theme-bring-your-own",
         "reference/theme-example",
+        "reference/theme-tailwind",
 			  // "reference/snippet",
 				// "reference/macro"
 			],
