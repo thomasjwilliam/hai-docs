@@ -7,11 +7,11 @@ Markdown directives are custom syntax elements that enable you to build interact
 **Syntax:** Directives use double curly braces `{{` and `}}` with a tag name and optional attributes:
 
 ```
-{{tagName attribute="value" booleanAttribute}}
+{{tagName attribute="value"}}
 ```
 
 **Self-closing vs Container directives:**
-- Self-closing: `{{input type="text"}}`
+- Self-closing: `{{input}}`
 - Container: `{{note}}content here{{/note}}`
 
 ---
@@ -20,34 +20,62 @@ Markdown directives are custom syntax elements that enable you to build interact
 
 These attributes are available on all directives:
 
-### id
-
-A unique identifier for the directive within the document. Useful for targeting specific elements in macros using the `hai.doc` utility library.
-
-**Example:**
-```
-{{input id="customer-name" type="text"}}
-```
-
-### class
-
-Space-separated CSS class names for styling or grouping directives. Can be used to target multiple elements in macros.
-
-**Example:**
-```
-{{div class="highlight important"}}
-  Important content
-{{/div}}
-```
-
 ### aria-label
 
 Accessibility label for screen readers and assistive technologies.
 
 **Example:**
 ```
-{{button aria-label="Submit form" onclick="$SubmitMacro" text="Submit"}}
+{{button aria-label="Do Something" onclick="$DoSomething" text="Do it!"}}
 ```
+
+### id
+
+A unique identifier for the directive within the document. Useful for targeting a specific element with macros using the `hai.doc` utility library.
+
+**Example:**
+```
+{{input id="customer-name"}}
+```
+
+### class
+
+Space-separated CSS class names to add styling/behaviour or group directives. Can be used to target multiple elements in macros.
+
+**Example:**
+```
+{{div class="fold"}}
+  Important content
+{{/div}}
+```
+
+#### Built-in class names
+
+##### Behaviour classes
+
+`commit`  
+Adds a button to replace the element with its inner content only.
+
+`copy`  
+Adds a button to copy the element's content to clipboard (as HTML).
+
+`fold`  
+TODO
+
+`remove`  
+Adds a button to delete the element and its content.
+
+##### Presentation classes
+
+`primary`  
+`secondary`  
+`tertiary`   
+`info`  
+`tip`  
+`success`  
+`warning`  
+`error`
+  
 
 ---
 
@@ -157,8 +185,6 @@ Standard global attributes
 {{/checkbox-group}}
 ```
 
-**Navigation:** Use Tab/Shift+Tab to navigate between checkboxes within the group and to other form elements.
-
 ### Datalist
 
 Provides a searchable dropdown with the ability to enter custom text. Similar to HTML [datalist](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist) element.
@@ -201,14 +227,6 @@ Standard global attributes
   {{option value="Spain"}}
 {{/datalist}}
 ```
-
-**Keyboard Shortcuts:**
-- Arrow keys: Navigate options
-- Enter: Select highlighted option
-- Escape: Close dropdown
-- Tab/Shift+Tab: Navigate to next/previous form element
-- Cmd/Ctrl + Enter: Commit value and exit field
-- Cmd/Ctrl + P: Commit value (with quick input mode enabled, automatically moves to next field)
 
 ### Input
 
@@ -272,14 +290,8 @@ Standard global attributes
 
 **Quick commit input:**
 ```
-{{input type="text" placeholder="Quick entry..." commit}}
+{{input type="text" class="commit" placeholder="Quick entry..."}}
 ```
-
-**Keyboard Shortcuts:**
-- Tab/Shift+Tab: Navigate to next/previous form element
-- Cmd/Ctrl + Enter: Exit field (cursor moves after the input)
-- Cmd/Ctrl + P: Commit value (replaces input with text)
-- Cmd/Ctrl + Backspace/Delete: Remove the input directive
 
 ### Option
 
@@ -356,8 +368,6 @@ Standard global attributes
 {{/radio-group}}
 ```
 
-**Navigation:** Use Tab/Shift+Tab to navigate between radio buttons within the group and to other form elements.
-
 ### Select
 
 Dropdown menu for selecting a single option. Similar to HTML [select](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select) element.
@@ -400,14 +410,6 @@ Standard global attributes
   {{option value="Critical"}}
 {{/select}}
 ```
-
-**Keyboard Shortcuts:**
-- Arrow keys: Navigate options
-- Enter/Space: Select option
-- Escape: Close dropdown
-- Tab/Shift+Tab: Navigate to next/previous form element
-- Cmd/Ctrl + Enter: Exit field
-- Cmd/Ctrl + P: Commit selected value
 
 ### Textarea
 
@@ -463,12 +465,6 @@ Standard global attributes
 ```
 {{textarea placeholder="Quick note" commit}}
 ```
-
-**Keyboard Shortcuts:**
-- Tab/Shift+Tab: Navigate to next/previous form element
-- Cmd/Ctrl + Enter: Exit field
-- Cmd/Ctrl + P: Commit value
-- Cmd/Ctrl + Backspace/Delete: Remove the textarea
 
 ---
 
