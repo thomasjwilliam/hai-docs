@@ -1,152 +1,124 @@
 # Markdown Directives
 
-## About
+Markdown directives are custom syntax elements that add interactive UI components — form inputs, buttons, and containers — directly into documents. They follow a consistent double-brace syntax and integrate with macros via the `hai.doc` library.
 
-Markdown directives are custom syntax elements that enable you to build interactive pages directly in your documents. They provide form inputs, buttons, containers, and other UI components that can be used to create dynamic templates and workflows.
-
-**Syntax:** Directives use double curly braces `{{` and `}}` with a tag name and optional attributes:
-
+**Syntax:**
 ```
-{{tagName attribute="value"}}
+{{tagName attribute="value" booleanAttribute}}
+{{tagName attribute="value"}}content{{/tagName}}
 ```
 
-**Self-closing vs Container directives:**
-- Self-closing: `{{input}}`
-- Container: `{{note}}content here{{/note}}`
+---
+
+## Quick Reference
+
+### Form directives
+
+| Directive                           | Self-closing | Description                                                             |
+|-------------------------------------|--------------|-------------------------------------------------------------------------|
+| [`button`](#button)                 | Yes          | Triggers a macro or snippet on click                                    |
+| [`checkbox-group`](#checkbox-group) | No           | Group of toggleable checkboxes                                          |
+| [`datalist`](#datalist)             | No           | Searchable dropdown with free-text fallback                             |
+| [`input`](#input)                   | Yes          | Single-line text, date, or datetime field                               |
+| [`option`](#option)                 | Yes          | An item within `checkbox-group`, `datalist`, `radio-group`, or `select` |
+| [`radio-group`](#radio-group)       | No           | Single-selection button group                                           |
+| [`select`](#select)                 | No           | Fixed-choice dropdown                                                   |
+| [`textarea`](#textarea)             | No           | Multi-line text field                                                   |
+
+### Container directives
+
+| Directive       | Description                                                        |
+|-----------------|--------------------------------------------------------------------|
+| [`note`](#note) | Styled callout block with optional type, title, and action buttons |
+| [`div`](#div)   | Generic block container with optional visual and action features   |
+| [`span`](#span) | Inline container for text or inline elements                       |
+
+### Global attributes
+
+| Attribute                   | Applies to | Description                                                       |
+|-----------------------------|------------|-------------------------------------------------------------------|
+| [`id`](#id)                 | All        | Unique identifier; used with `hai.doc` query methods              |
+| [`class`](#class)           | All        | Space-separated CSS class names; also controls built-in behaviors |
+| [`aria-label`](#aria-label) | All        | Accessibility label for screen readers                            |
+
+### Built-in class names
+
+| Class                                        | Effect                                                      |
+|----------------------------------------------|-------------------------------------------------------------|
+| `commit`                                     | Adds a button to replace the element with its inner content |
+| `copy`                                       | Adds a button to copy content to clipboard (as HTML)        |
+| `fold`                                       | Adds a collapse/expand toggle                               |
+| `remove`                                     | Adds a button to delete the element                         |
+| `primary`, `secondary`, `tertiary`           | Presentation styles                                         |
+| `info`, `tip`, `success`, `warning`, `error` | Semantic color styles                                       |
 
 ---
 
 ## Global Attributes
 
-These attributes are available on all directives:
-
-### aria-label
-
-Accessibility label for screen readers and assistive technologies.
-
-**Example:**
-```
-{{button aria-label="Do Something" onclick="$DoSomething" text="Do it!"}}
-```
-
 ### id
 
-A unique identifier for the directive within the document. Useful for targeting a specific element with macros using the `hai.doc` utility library.
+A unique identifier for the directive within the document. Required when targeting the element with macros.
 
-**Example:**
 ```
 {{input id="customer-name"}}
+{{div id="summary-section"}}content{{/div}}
 ```
+
+---
 
 ### class
 
-Space-separated CSS class names to add styling/behaviour or group directives. Can be used to target multiple elements in macros.
+Space-separated CSS class names. In addition to custom styling, several built-in class names enable interactive behaviors (see [Built-in class names](#built-in-class-names) above).
 
-**Example:**
 ```
-{{div class="fold"}}
-  Important content
-{{/div}}
+{{div class="fold"}}Collapsible section{{/div}}
+{{div class="commit copy"}}Content with two actions{{/div}}
 ```
 
-#### Built-in class names
+---
 
-##### Behaviour classes
+### aria-label
 
-`commit`  
-Adds a button to replace the element with its inner content only.
+Accessibility label for screen readers. Defaults to visible text (e.g., button text) when not set.
 
-`copy`  
-Adds a button to copy the element's content to clipboard (as HTML).
-
-`fold`  
-TODO
-
-`remove`  
-Adds a button to delete the element and its content.
-
-##### Presentation classes
-
-`primary`  
-`secondary`  
-`tertiary`   
-`info`  
-`tip`  
-`success`  
-`warning`  
-`error`
-  
+```
+{{button aria-label="Submit the contact form" onclick="$SubmitForm" text="Submit"}}
+```
 
 ---
 
 ## Form Directives
 
-Form directives provide interactive input elements for collecting and displaying data.
+### button
 
-:::tip
+Triggers a snippet or macro when clicked.
 
-**Save directives as snippets**
+**Syntax:** `{{button ...attributes}}`
 
-Instead of typing directives repeatedly, save them as snippets. For example, create a snippet called `DatePicker`:
-```
-{{input type="date"}}
-```
+**Attributes**
 
-Then insert it with `/DatePicker` or reference it in other snippets as `$DatePicker`.
+| Attribute     | Required | Default     | Description                                                                                              |
+|---------------|----------|-------------|----------------------------------------------------------------------------------------------------------|
+| `onclick`     | Yes      | —           | Snippet or macro trigger. Format: `$Name` or `$Name[ordinal]`                                            |
+| `text`        | Yes      | —           | Label displayed on the button                                                                            |
+| `color`       | No       | `primary`   | One of `primary` \| `secondary` \| `tertiary` \| `info` \| `success` \| `warning` \| `danger` \| `error` |
+| `aria-label`  | No       | Button text | Accessibility label                                                                                      |
+| `id`, `class` | No       | —           | Global attributes                                                                                        |
 
-:::
-
-### Button
-
-Triggers a macro or snippet when clicked. Similar to the HTML [button](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button) element.
-
-**Syntax:**
-```
-{{button ...attributes}}
-```
-
-**Attributes:**
-
-`onclick` **required**  
-The trigger for a snippet or macro, prefixed with `$`. Use the format `$SnippetName` or `$SnippetName[ordinal]` if multiple snippets share the same trigger.
-
-`text` **required**  
-The text displayed on the button.
-
-`color`  
-Button color theme. Default: `primary`  
-Values: `primary` | `secondary` | `accent` | `info` | `success` | `warning` | `error`
-
-`aria-label`  
-Accessibility label (optional, defaults to button text)
-
-`id`, `class`  
-Standard global attributes
-
-**Examples:**
+**Example**
 
 ```
-{{button onclick="$SaveData" text="Save"}}
-```
-
-```
+{{button onclick="$SaveDraft" text="Save"}}
 {{button onclick="$DeleteItem" text="Delete" color="error"}}
-```
-
-```
 {{button onclick="$ProcessOrder[2]" text="Process" color="success"}}
 ```
 
-**Usage with Snippets:**
-```
-First Name: {{input id="first-name"}}
-Last Name: {{input id="last-name"}}
-{{button onclick="$CreateProfile" text="Create Profile"}}
-```
+---
 
-### Checkbox Group
+### checkbox-group
 
-Renders multiple checkboxes that can be individually toggled. Similar to HTML [checkbox](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox) elements.
+Renders a group of checkboxes. Each option is a nested [`option`](#option) directive.
 
 **Syntax:**
 ```
@@ -156,761 +128,299 @@ Renders multiple checkboxes that can be individually toggled. Similar to HTML [c
 {{/checkbox-group}}
 ```
 
-**Attributes:**
+**Attributes**
 
-`column`  
-Boolean attribute. When present, displays checkboxes vertically instead of horizontally.
+| Attribute                   | Required | Default | Description                            |
+|-----------------------------|----------|---------|----------------------------------------|
+| `value`                     | No       | —       | Comma-separated list of checked values |
+| `column`                    | No       | —       | Boolean. Stacks checkboxes vertically  |
+| `aria-label`, `id`, `class` | No       | —       | Global attributes                      |
 
-`value`  
-Comma-separated list of checked checkbox values. Commas within values are automatically escaped.
-
-`aria-label`, `id`, `class`  
-Standard global attributes
-
-**Examples:**
-
-```
-{{checkbox-group}}
-  {{option value="email"}}
-  {{option value="sms" label="Text Messages"}}
-  {{option value="phone" label="Phone Calls"}}
-{{/checkbox-group}}
-```
+**Example**
 
 ```
 {{checkbox-group value="email,sms" column}}
-  {{option value="email" label="Email Notifications"}}
-  {{option value="sms" label="SMS Notifications"}}
-  {{option value="phone" label="Phone Notifications"}}
+  {{option value="email" label="Email"}}
+  {{option value="sms" label="SMS"}}
+  {{option value="phone" label="Phone"}}
 {{/checkbox-group}}
 ```
 
-### Datalist
+---
 
-Provides a searchable dropdown with the ability to enter custom text. Similar to HTML [datalist](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist) element.
+### datalist
+
+A searchable dropdown that also accepts free-text entry.
 
 **Syntax:**
 ```
 {{datalist ...attributes}}
   {{option value="..."}}
-  {{option value="..." label="..."}}
 {{/datalist}}
 ```
 
-**Attributes:**
+**Attributes**
 
-`placeholder`  
-Text displayed when no value is selected.
+| Attribute                   | Required | Default | Description                                                                            |
+|-----------------------------|----------|---------|----------------------------------------------------------------------------------------|
+| `placeholder`               | No       | —       | Hint text when nothing is selected                                                     |
+| `value`                     | No       | —       | Currently selected or entered value                                                    |
+| `cols`                      | No       | —       | Width in characters. Use `fill` for 100% width. Defaults to content width when omitted |
+| `aria-label`, `id`, `class` | No       | —       | Global attributes                                                                      |
 
-`value`  
-The selected option value or custom entered text.
-
-`aria-label`, `id`, `class`  
-Standard global attributes
-
-**Examples:**
+**Example**
 
 ```
 {{datalist placeholder="Select your role"}}
   {{option value="Developer"}}
   {{option value="Designer"}}
   {{option value="Manager"}}
-  {{option value="Other"}}
+{{/datalist}}
+
+{{datalist cols="30" placeholder="Select your role"}}
+  {{option value="Developer"}}
+  {{option value="Designer"}}
 {{/datalist}}
 ```
 
-```
-{{datalist placeholder="Choose a country" value="France"}}
-  {{option value="France"}}
-  {{option value="Germany"}}
-  {{option value="Italy"}}
-  {{option value="Spain"}}
-{{/datalist}}
-```
+---
 
-### Input
+### input
 
-Text input field for various data types. Similar to HTML [input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) element.
+Single-line text, date, or datetime-local field.
 
-**Syntax:**
-```
-{{input ...attributes}}
-```
+**Syntax:** `{{input ...attributes}}`
 
-**Attributes:**
+**Attributes**
 
-`type`  
-Input type. Default: `text`  
-Values: `text` | `date` | `datetime-local`
+| Attribute                   | Required | Default | Description                                         |
+|-----------------------------|----------|---------|-----------------------------------------------------|
+| `type`                      | No       | `text`  | `text` \| `number` \| `date` \| `datetime-local`    |
+| `placeholder`               | No       | —       | Hint text when empty                                |
+| `value`                     | No       | —       | Current value                                       |
+| `cols`                      | No       | `15`    | Width in characters. Use `fill` for 100% width      |
+| `commit`                    | No       | —       | Boolean. Replaces the input with its value on entry |
+| `aria-label`, `id`, `class` | No       | —       | Global attributes                                   |
 
-`placeholder`  
-Text displayed when the field is empty.
-
-`value`  
-Current value of the input.
-
-`cols`  
-For `type="text"`: Sets the visible width.
-- Positive integer: Minimum width in characters (can grow with content)
-- `auto`: Full width (100% of container)
-- Default: `12` characters
-
-`commit`  
-Boolean attribute. When present, the input value instantly replaces the input field after entry. Useful for quick text insertion.
-
-`aria-label`, `id`, `class`  
-Standard global attributes
-
-**Examples:**
-
-**Basic text input:**
-```
-{{input}}
-```
-
-**Text with placeholder:**
-```
-{{input type="text" placeholder="Enter your name"}}
-```
-
-**Full-width input:**
-```
-{{input type="text" cols="auto" placeholder="Full width input"}}
-```
-
-**Date picker:**
-```
-{{input type="date" value="2024-01-15"}}
-```
-
-**Date and time picker:**
-```
-{{input type="datetime-local" value="2024-01-15T14:30"}}
-```
-
-**Quick commit input:**
-```
-{{input type="text" class="commit" placeholder="Quick entry..."}}
-```
-
-### Option
-
-Defines an option for `checkbox-group`, `datalist`, `radio-group`, or `select` directives. Similar to HTML [option](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option) element.
-
-**Syntax:**
-```
-{{option ...attributes}}
-```
-
-**Attributes:**
-
-`value` **required**  
-The value of the option.
-
-`label`  
-Display label for the option. If not provided, the value is used as the label.
-
-`aria-label`, `id`, `class`  
-Standard global attributes
-
-**Examples:**
+**Example**
 
 ```
-{{option value="small"}}
+{{input type="text" placeholder="Full name" id="name"}}
+{{input type="date"}}
+{{input type="text" cols="fill" placeholder="Full-width field"}}
+{{input commit placeholder="Quick entry"}}
 ```
 
-```
-{{option value="md" label="Medium"}}
-```
+---
+
+### option
+
+A single option used inside `checkbox-group`, `datalist`, `radio-group`, or `select`.
+
+**Syntax:** `{{option ...attributes}}`
+
+**Attributes**
+
+| Attribute                   | Required | Default         | Description                    |
+|-----------------------------|----------|-----------------|--------------------------------|
+| `value`                     | Yes      | —               | The option's value             |
+| `label`                     | No       | Same as `value` | Display text shown to the user |
+| `aria-label`, `id`, `class` | No       | —               | Global attributes              |
+
+**Example**
 
 ```
 {{option value="xl" label="Extra Large"}}
 ```
 
-### Radio Group
+---
 
-Allows selection of a single option from a group. Similar to HTML [input type="radio"](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio) element.
+### radio-group
+
+Single-selection button group. Each option is a nested [`option`](#option) directive.
 
 **Syntax:**
 ```
 {{radio-group ...attributes}}
   {{option value="..."}}
-  {{option value="..." label="..."}}
 {{/radio-group}}
 ```
 
-**Attributes:**
+**Attributes**
 
-`column`  
-Boolean attribute. When present, displays radio buttons vertically instead of horizontally.
+| Attribute                   | Required | Default | Description                              |
+|-----------------------------|----------|---------|------------------------------------------|
+| `value`                     | No       | —       | Value of the selected option             |
+| `column`                    | No       | —       | Boolean. Stacks radio buttons vertically |
+| `aria-label`, `id`, `class` | No       | —       | Global attributes                        |
 
-`value`  
-The value of the selected radio option.
-
-`aria-label`, `id`, `class`  
-Standard global attributes
-
-**Examples:**
+**Example**
 
 ```
-{{radio-group}}
-  {{option value="yes"}}
-  {{option value="no"}}
-  {{option value="maybe"}}
+{{radio-group value="medium" column}}
+  {{option value="low" label="Low"}}
+  {{option value="medium" label="Medium"}}
+  {{option value="high" label="High"}}
 {{/radio-group}}
 ```
 
-```
-{{radio-group value="high" column}}
-  {{option value="low" label="Low Priority"}}
-  {{option value="medium" label="Medium Priority"}}
-  {{option value="high" label="High Priority"}}
-{{/radio-group}}
-```
+---
 
-### Select
+### select
 
-Dropdown menu for selecting a single option. Similar to HTML [select](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select) element.
+Fixed-choice dropdown. Each option is a nested [`option`](#option) directive.
 
 **Syntax:**
 ```
 {{select ...attributes}}
   {{option value="..."}}
-  {{option value="..." label="..."}}
 {{/select}}
 ```
 
-**Attributes:**
+**Attributes**
 
-`placeholder`  
-Text displayed when no option is selected.
+| Attribute                   | Required | Default | Description                        |
+|-----------------------------|----------|---------|------------------------------------|
+| `placeholder`               | No       | —       | Hint text when nothing is selected |
+| `value`                     | No       | —       | Value of the selected option       |
+| `aria-label`, `id`, `class` | No       | —       | Global attributes                  |
 
-`value`  
-The value of the selected option.
-
-`aria-label`, `id`, `class`  
-Standard global attributes
-
-**Examples:**
+**Example**
 
 ```
-{{select placeholder="Choose size"}}
-  {{option value="S" label="Small"}}
-  {{option value="M" label="Medium"}}
-  {{option value="L" label="Large"}}
-  {{option value="XL" label="Extra Large"}}
-{{/select}}
-```
-
-```
-{{select placeholder="Priority Level" value="Medium"}}
+{{select placeholder="Priority" value="Medium"}}
   {{option value="Low"}}
   {{option value="Medium"}}
   {{option value="High"}}
-  {{option value="Critical"}}
 {{/select}}
 ```
 
-### Textarea
+---
 
-Multi-line text input field. Similar to HTML [textarea](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea) element.
+### textarea
 
-**Syntax:**
-```
-{{textarea ...attributes}}
-```
+Multi-line text input.
 
-**Attributes:**
+**Syntax:** `{{textarea ...attributes}}content{{/textarea}}`
 
-`placeholder`  
-Text displayed when the field is empty.
+**Attributes**
 
-`value`  
-Current text content. Multi-line text uses `\n` for line breaks in the attribute.
+| Attribute                   | Required | Default | Description                                              |
+|-----------------------------|----------|---------|----------------------------------------------------------|
+| `placeholder`               | No       | —       | Hint text when empty                                     |
+| `rows`                      | No       | `2`     | Height in lines. Auto-resizes to content                 |
+| `cols`                      | No       | `fill`  | Width in characters (`fill` = 100% width)                |
+| `commit`                    | No       | —       | Boolean. Replaces the textarea with its content on entry |
+| `aria-label`, `id`, `class` | No       | —       | Global attributes                                        |
 
-`rows`  
-Visible height in lines. Default: `auto` (auto-resizes to content)  
-Values: Positive integer or `auto`
-
-`cols`  
-Visible width in characters.
-- Positive integer: Fixed width
-- `auto`: Full width (100% of container)
-- Default: 3 columns
-
-`commit`  
-Boolean attribute. When present, the entered text instantly replaces the textarea after entry.
-
-`aria-label`, `id`, `class`  
-Standard global attributes
-
-**Examples:**
+**Example**
 
 ```
-{{textarea}}
-```
-
-```
-{{textarea placeholder="Enter your message..."}}
-```
-
-```
-{{textarea placeholder="Description" value="Default text here"}}
-```
-
-```
-{{textarea placeholder="Comments" cols="60" rows="6"}}
-```
-
-```
-{{textarea placeholder="Quick note" commit}}
+{{textarea placeholder="Describe the issue..." rows="6"}}{{/textarea}}
 ```
 
 ---
 
 ## Container Directives
 
-Container directives wrap content and provide organizational and interactive features.
+### note
 
-### Note
-
-Displays content in a styled container with optional title and type-specific styling. Supports actions like folding, copying, and committing.
+A styled callout block with optional type-specific colors and action buttons.
 
 **Syntax:**
 ```
 {{note ...attributes}}
-  content here
+  content
 {{/note}}
 ```
 
-**Attributes:**
+**Attributes**
 
-`type`  
-Visual style of the note. Each type has a distinct color and icon:
-- `info` - Blue, information icon
-- `tip` - Green, lightbulb icon
-- `success` - Green, checkmark icon
-- `warning` - Orange, alert icon
-- `error` - Red, error icon
+| Attribute                   | Required | Default   | Description                                                                            |
+|-----------------------------|----------|-----------|----------------------------------------------------------------------------------------|
+| `type`                      | No       | —         | `info` \| `tip` \| `success` \| `warning` \| `error` \| `danger` — sets color and icon |
+| `title`                     | No       | Type name | Heading text. Defaults to the type name when `type` is set                             |
+| `fold`                      | No       | —         | Boolean. Adds collapse/expand toggle                                                   |
+| `commit`                    | No       | —         | Boolean. Adds button to unwrap content                                                 |
+| `copy`                      | No       | —         | Boolean. Adds button to copy content to clipboard                                      |
+| `remove`                    | No       | —         | Boolean. Adds button to delete the note                                                |
+| `aria-label`, `id`, `class` | No       | —         | Global attributes                                                                      |
 
-`title`  
-Custom title for the note. If not provided and `type` is set, uses the type name as the title.
+**Example**
 
-`fold`  
-Boolean attribute. Adds a button to collapse/expand the note content.
-
-`commit`  
-Boolean attribute. Adds a button to replace the note with its inner content only.
-
-`copy`  
-Boolean attribute. Adds a button to copy the note's content to clipboard (as HTML).
-
-`remove`  
-Boolean attribute. Adds a button to delete the note and its content.
-
-`aria-label`, `id`, `class`  
-Standard global attributes
-
-**Examples:**
-
-**Simple note:**
 ```
-{{note}}
-  This is a simple note without styling.
+{{note type="warning" title="Before you proceed" fold}}
+  Check that all required fields are filled in before submitting.
 {{/note}}
 ```
 
-**Info note with folding:**
-```
-{{note type="info" fold}}
-  This information can be collapsed to save space.
-{{/note}}
-```
+---
 
-**Success note with title:**
-```
-{{note type="success" title="Task Completed"}}
-  Your request has been processed successfully.
-{{/note}}
-```
+### div
 
-**Error note with custom title:**
-```
-{{note type="error" title="Validation Failed"}}
-  Please check the following errors:
-  - Name is required
-  - Email format is invalid
-{{/note}}
-```
-
-**Tip with all actions:**
-```
-{{note type="tip" fold commit copy remove}}
-  **Pro Tip:** Use keyboard shortcuts to work faster!
-  
-  Press `Cmd/Ctrl + P` to commit form values.
-{{/note}}
-```
-
-**Nested content:**
-```
-{{note type="info" title="Order Summary"}}
-  Customer: {{input placeholder="Name"}}
-  Item: {{select placeholder="Product"}}
-    {{option value="widget"}}
-    {{option value="gadget"}}
-  {{/select}}
-{{/note}}
-```
-
-### Div
-
-Generic block container for grouping content with optional visual styling and actions.
+Generic block container with optional visual emphasis and action buttons.
 
 **Syntax:**
 ```
 {{div ...attributes}}
-  content here
+  content
 {{/div}}
 ```
 
-**Attributes:**
+**Attributes**
 
-`fold`  
-Boolean attribute. Adds a button to collapse/expand the div content.
+| Attribute                   | Required | Default | Description                                                  |
+|-----------------------------|----------|---------|--------------------------------------------------------------|
+| `panel`                     | No       | —       | Boolean. Applies panel styling (background, border, padding) |
+| `fold`                      | No       | —       | Boolean. Adds collapse/expand toggle                         |
+| `commit`                    | No       | —       | Boolean. Adds button to unwrap content                       |
+| `copy`                      | No       | —       | Boolean. Adds button to copy content to clipboard            |
+| `remove`                    | No       | —       | Boolean. Adds button to delete the div                       |
+| `aria-label`, `id`, `class` | No       | —       | Global attributes                                            |
 
-`commit`  
-Boolean attribute. Adds a button to replace the div with its inner content only.
+**Example**
 
-`copy`  
-Boolean attribute. Adds a button to copy the div's content to clipboard (as HTML).
-
-`remove`  
-Boolean attribute. Adds a button to delete the div and its content.
-
-`shaded`  
-Boolean attribute. Applies a subtle gray background color for visual separation.
-
-`aria-label`, `id`, `class`  
-Standard global attributes
-
-**Examples:**
-
-**Simple container:**
 ```
-{{div}}
-  Grouped content here
+{{div panel fold}}
+  ## Action Items
+  {{textarea placeholder="List action items..." rows="4"}}
 {{/div}}
-```
-
-**Shaded section:**
-```
-{{div shaded}}
-  This section has a light gray background for emphasis.
-{{/div}}
-```
-
-**Collapsible section with all actions:**
-```
-{{div fold commit copy remove}}
-  Important content that can be:
-  - Folded to save space
-  - Committed (unwrapped)
-  - Copied to clipboard
-  - Removed entirely
-{{/div}}
-```
-
-**Nested structure:**
-```
-{{div class="form-section" shaded}}
-  ## Personal Information
-  
-  Name: {{input type="text"}}
-  Email: {{input type="text"}}
-  
-  {{div class="subsection"}}
-    Date of Birth: {{input type="date"}}
-  {{/div}}
-{{/div}}
-```
-
-### Span
-
-Inline container for wrapping text or inline elements with optional actions. Useful for marking up specific portions of text.
-
-**Syntax:**
-```
-{{span ...attributes}}
-  inline content here
-{{/span}}
-```
-
-**Attributes:**
-
-`commit`  
-Boolean attribute. Adds a button to replace the span with its inner content only.
-
-`copy`  
-Boolean attribute. Adds a button to copy the span's content to clipboard (as HTML).
-
-`remove`  
-Boolean attribute. Adds a button to delete the span and its content.
-
-`aria-label`, `id`, `class`  
-Standard global attributes
-
-**Examples:**
-
-**Highlight text:**
-```
-This is {{span class="highlight"}}important text{{/span}} in a sentence.
-```
-
-**Inline form elements:**
-```
-Customer {{span}}{{input placeholder="Name"}}{{/span}} ordered {{span}}{{input placeholder="Quantity"}}{{/span}} items.
-```
-
-**With commit action:**
-```
-The answer is {{span commit}}{{input placeholder="42"}}{{/span}} according to the book.
 ```
 
 ---
 
-## Advanced Features
+### span
 
-### Commit Action
+Inline container for wrapping text or inline elements with optional action buttons.
 
-The "commit" action replaces a directive (and its nested directives) with their final values or content. This is useful for:
-- Converting form templates into finalized text
-- Removing directive markup while keeping the content
-- Creating templates that transform into plain text
+**Syntax:** `{{span ...attributes}}inline content{{/span}}`
 
-**How it works:**
-1. For input directives: Replaces with the entered value
-2. For container directives (note, div, span): Replaces with inner content only
-3. For button directives: Removes the button entirely
-4. Processes nested directives recursively from innermost to outermost
+**Attributes**
 
-**Keyboard Shortcut:** `Cmd/Ctrl + Alt + P` commits all committable directives in the document
+| Attribute                   | Required | Default | Description                                       |
+|-----------------------------|----------|---------|---------------------------------------------------|
+| `commit`                    | No       | —       | Boolean. Adds button to unwrap content            |
+| `copy`                      | No       | —       | Boolean. Adds button to copy content to clipboard |
+| `remove`                    | No       | —       | Boolean. Adds button to delete the span           |
+| `aria-label`, `id`, `class` | No       | —       | Global attributes                                 |
 
-**Example workflow:**
-```
-Before commit:
-{{note type="info" commit}}
-  Customer: {{input value="John Doe"}}
-  Order: {{input value="Widget"}}
-{{/note}}
-
-After commit:
-Customer: John Doe
-Order: Widget
-```
-
-### Copy to Clipboard
-
-The "copy" action copies the content of a directive to the clipboard as HTML. The content is processed (committed) before copying, so form values are included.
-
-**Use cases:**
-- Copying finalized form content to paste elsewhere
-- Extracting sections for use in other documents
-- Creating reusable content blocks
-
-**Action buttons:** Look for the copy icon (📋) in the directive's button bar.
-
-### Fold/Unfold
-
-Directives with the `fold` attribute can collapse and expand their content to save screen space.
-
-**Behavior:**
-- Collapsed: Shows only the header/title
-- Expanded: Shows full content
-- State is visual only (not persisted to markdown)
-
-**Use cases:**
-- Long notes or sections you want to hide temporarily
-- Creating collapsible FAQ sections
-- Managing complex forms with many fields
-
-### Keyboard Navigation
-
-Form directives support efficient keyboard navigation:
-
-**General Navigation:**
-- `Tab`: Move to next form element
-- `Shift + Tab`: Move to previous form element
-
-**Within Input Fields:**
-- `Cmd/Ctrl + Enter`: Exit field and place cursor after the directive
-- `Cmd/Ctrl + P`: Commit the value (replaces directive with text)
-- `Cmd/Ctrl + Backspace/Delete`: Remove the directive
-
-**Quick Input Mode:**
-When enabled (`Cmd/Ctrl + Alt + Q`):
-- Committing a value automatically jumps to the next form field
-- Enables rapid form filling without manual navigation
-
-**Within Groups (checkbox-group, radio-group):**
-- `Tab`: Move to next checkbox/radio within group, or to next form element after the last option
-- `Shift + Tab`: Move to previous checkbox/radio, or to previous form element before the first option
-
----
-
-## Practical Examples
-
-### Customer Information Form
+**Example**
 
 ```
-# Customer Information
-
-**Personal Details**
-First Name: {{input id="first-name" placeholder="John"}}
-Last Name: {{input id="last-name" placeholder="Doe"}}
-Email: {{input type="text" placeholder="john@example.com"}}
-Phone: {{input type="text" placeholder="+1 234 567 8900"}}
-
-**Preferences**
-Contact method:
-{{checkbox-group column}}
-  {{option value="email" label="Email"}}
-  {{option value="phone" label="Phone"}}
-  {{option value="sms" label="SMS"}}
-{{/checkbox-group}}
-
-Priority Level:
-{{radio-group value="normal"}}
-  {{option value="low" label="Low"}}
-  {{option value="normal" label="Normal"}}
-  {{option value="high" label="High"}}
-{{/radio-group}}
-
-{{button onclick="$ProcessCustomer" text="Submit" color="primary"}}
-```
-
-### Support Ticket Template
-
-```
-{{note type="info" title="Support Ticket" fold}}
-  **Ticket Information**
-  Customer: {{input placeholder="Customer name"}}
-  Issue Type: {{select placeholder="Select issue type"}}
-    {{option value="technical" label="Technical Problem"}}
-    {{option value="billing" label="Billing Question"}}
-    {{option value="feature" label="Feature Request"}}
-  {{/select}}
-  
-  Priority: {{radio-group}}
-    {{option value="low"}}
-    {{option value="medium"}}
-    {{option value="high"}}
-  {{/radio-group}}
-  
-  **Description**
-  {{textarea placeholder="Describe the issue..." rows="6"}}
-  
-  {{button onclick="$CreateTicket" text="Create Ticket" color="success"}}
-{{/note}}
-```
-
-### Meeting Notes with Sections
-
-```
-# Meeting Notes - {{input type="date"}}
-
-{{div shaded fold}}
-  **Attendees**
-  {{textarea placeholder="List attendees..." rows="3"}}
-{{/div}}
-
-{{div shaded fold}}
-  **Discussion Points**
-  {{textarea placeholder="Key points discussed..." rows="5"}}
-{{/div}}
-
-{{div shaded fold}}
-  **Action Items**
-  {{textarea placeholder="Action items and owners..." rows="5"}}
-{{/div}}
-
-{{div shaded fold}}
-  **Next Meeting**
-  Date: {{input type="date"}}
-  Time: {{input placeholder="10:00 AM"}}
-{{/div}}
-```
-
-### Quick Data Entry
-
-Enable quick input mode (`Cmd/Ctrl + Alt + Q`) and use commit attributes for rapid data entry:
-
-```
-Order Entry:
-Product: {{input placeholder="Product name" commit}}
-Quantity: {{input placeholder="0" commit}}
-Price: {{input placeholder="$0.00" commit}}
-Customer: {{datalist placeholder="Select customer" commit}}
-  {{option value="Acme Corp"}}
-  {{option value="Global Industries"}}
-  {{option value="Tech Solutions"}}
-{{/datalist}}
-
-{{button onclick="$ProcessOrder" text="Process Order"}}
-```
-
-Press `Cmd/Ctrl + P` on each field to commit and auto-advance to the next field.
-
-### Nested Directives
-
-```
-{{note type="tip" title="Project Setup" fold commit}}
-  ## Configuration
-  
-  {{div class="config-section"}}
-    Project Name: {{input value="My Project"}}
-    
-    Environment:
-    {{select value="dev"}}
-      {{option value="dev" label="Development"}}
-      {{option value="staging" label="Staging"}}
-      {{option value="prod" label="Production"}}
-    {{/select}}
-    
-    {{div class="features"}}
-      Enable Features:
-      {{checkbox-group value="api,auth"}}
-        {{option value="api" label="REST API"}}
-        {{option value="auth" label="Authentication"}}
-        {{option value="db" label="Database"}}
-      {{/checkbox-group}}
-    {{/div}}
-  {{/div}}
-  
-  {{button onclick="$GenerateConfig" text="Generate Config" color="primary"}}
-{{/note}}
+Customer {{span commit}}{{input placeholder="Name"}}{{/span}} placed an order.
 ```
 
 ---
 
-## Tips & Best Practices
+<details>
+<summary>Tips and best practices</summary>
 
-1. **Use snippets for common patterns:** Save frequently-used directive combinations as snippets for quick insertion.
+- **Save frequent patterns as snippets.** A snippet named `DatePicker` containing `{{input type="date"}}` can be inserted anywhere with `/DatePicker`.
+- **Use meaningful `id` values.** Descriptive IDs make it easier to target directives with `hai.doc.getDirectiveById()`.
+- **Group related fields.** Wrap related inputs in a `div` or `note` for logical organization and shared actions.
+- **Use `commit` for finalization.** Templates that should produce plain text output should use `commit` on containers.
+- **Add `fold` to long sections.** Collapsible sections keep complex documents manageable.
+- **Enable quick input mode** (`Cmd/Ctrl + Alt + Q`) for rapid sequential form filling.
+- **Choose the right input type.** Use `type="date"` or `type="datetime-local"` instead of text fields for temporal data.
 
-2. **Enable quick input mode:** Use `Cmd/Ctrl + Alt + Q` to toggle quick input mode for faster form filling.
-
-3. **Use meaningful IDs:** Assign descriptive `id` attributes to make directives easier to target in macros.
-
-4. **Group related inputs:** Use `div` or `note` to organize related form fields logically.
-
-5. **Commit for finalization:** Use `commit` attributes or actions to convert templates into final text output.
-
-6. **Fold long sections:** Add `fold` to lengthy notes or divs to improve document readability.
-
-7. **Use appropriate types:** Choose the right input `type` (text, date, datetime-local) for your data.
-
-8. **Leverage Tab navigation:** Use Tab/Shift+Tab to navigate efficiently between form elements.
-
-9. **Use placeholder text:** Provide clear placeholder text to guide users on expected input.
-
-10. **Combine with macros:** Use buttons with `onclick` to trigger macros that process directive values.
+</details>
