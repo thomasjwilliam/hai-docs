@@ -1,30 +1,221 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * Hai documentation theme.
+ *
+ * Restyled to match the Hai app: a clean, light, content-first UI with a
+ * muted slate accent, generous whitespace, subtle gray borders instead of
+ * heavy shadows, and a crisp sans-serif typeface.
  */
 
-/* You can override the default Infima variables here. */
+/* ------------------------------------------------------------------ */
+/* Typography                                                          */
+/* ------------------------------------------------------------------ */
 :root {
-  --ifm-color-primary: #1475C0;
-  --ifm-color-primary-dark: #1269ad;
-  --ifm-color-primary-darker: #1162a3;
-  --ifm-color-primary-darkest: #0e5186;
-  --ifm-color-primary-light: #1681d3;
-  --ifm-color-primary-lighter: #1788dd;
-  --ifm-color-primary-lightest: #2a96e6;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-font-family-base: "Inter", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --ifm-font-family-monospace: "JetBrains Mono", "SFMono-Regular", Menlo,
+    Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  --ifm-font-size-base: 16px;
+  --ifm-line-height-base: 1.65;
+  --ifm-heading-font-weight: 650;
+  --ifm-heading-line-height: 1.25;
+  --ifm-h1-font-size: 2.25rem;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #4a9eda;
-  --ifm-color-primary-dark: #3290d4;
-  --ifm-color-primary-darker: #2788cf;
-  --ifm-color-primary-darkest: #2070ab;
-  --ifm-color-primary-light: #62ace0;
-  --ifm-color-primary-lighter: #70b4e3;
-  --ifm-color-primary-lightest: #96c8eb;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+/* ------------------------------------------------------------------ */
+/* Color — Hai slate                                                   */
+/* ------------------------------------------------------------------ */
+:root {
+  /* Base hue/chroma from the requested slate, darkened to ~0.43 so the
+     primary reads well as link/heading text *and* as a button fill. */
+  --hai-accent: oklch(0.43 0.046 257.417);
+
+  --ifm-color-primary: oklch(0.43 0.046 257.417);
+  --ifm-color-primary-dark: oklch(0.39 0.046 257.417);
+  --ifm-color-primary-darker: oklch(0.36 0.046 257.417);
+  --ifm-color-primary-darkest: oklch(0.29 0.046 257.417);
+  --ifm-color-primary-light: oklch(0.48 0.046 257.417);
+  --ifm-color-primary-lighter: oklch(0.52 0.046 257.417);
+  --ifm-color-primary-lightest: oklch(0.59 0.046 257.417);
+
+  --ifm-code-font-size: 92%;
+  --docusaurus-highlighted-code-line-bg: oklch(0.554 0.046 257.417 / 0.1);
+
+  /* Surfaces: keep it bright and airy like the app */
+  --ifm-background-color: #ffffff;
+  --ifm-background-surface-color: #ffffff;
+  --ifm-color-content: #1f2328;
+  --ifm-color-content-secondary: #57606a;
+  --ifm-toc-border-color: #ececef;
+  --ifm-hr-border-color: #ececef;
+
+  --ifm-navbar-height: 3.75rem;
+  --ifm-navbar-background-color: rgba(255, 255, 255, 0.85);
+  --ifm-navbar-shadow: none;
+
+  --ifm-global-radius: 8px;
+  --ifm-button-border-radius: 8px;
+
+  --ifm-menu-color: #424a53;
+  --ifm-menu-color-background-active: oklch(0.554 0.046 257.417 / 0.08);
+  --ifm-menu-color-background-hover: rgba(0, 0, 0, 0.04);
+}
+
+/* For readability, use a lighter slate in dark mode. */
+[data-theme="dark"] {
+  --ifm-color-primary: oklch(0.78 0.04 257.417);
+  --ifm-color-primary-dark: oklch(0.74 0.04 257.417);
+  --ifm-color-primary-darker: oklch(0.7 0.04 257.417);
+  --ifm-color-primary-darkest: oklch(0.62 0.04 257.417);
+  --ifm-color-primary-light: oklch(0.82 0.04 257.417);
+  --ifm-color-primary-lighter: oklch(0.86 0.04 257.417);
+  --ifm-color-primary-lightest: oklch(0.92 0.04 257.417);
+
+  --docusaurus-highlighted-code-line-bg: oklch(0.78 0.04 257.417 / 0.14);
+
+  --ifm-background-color: #0e1116;
+  --ifm-background-surface-color: #161b22;
+  --ifm-color-content: #e6edf3;
+  --ifm-color-content-secondary: #9aa5b1;
+  --ifm-toc-border-color: #21262d;
+  --ifm-hr-border-color: #21262d;
+
+  --ifm-navbar-background-color: rgba(14, 17, 22, 0.85);
+  --ifm-menu-color: #c4cdd6;
+  --ifm-menu-color-background-active: oklch(0.78 0.04 257.417 / 0.16);
+  --ifm-menu-color-background-hover: rgba(255, 255, 255, 0.06);
+}
+
+/* ------------------------------------------------------------------ */
+/* Navbar — minimal, frosted, hairline border                          */
+/* ------------------------------------------------------------------ */
+.navbar {
+  border-bottom: 1px solid var(--ifm-toc-border-color);
+  backdrop-filter: saturate(180%) blur(10px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+}
+
+.navbar__title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.navbar__logo {
+  height: 1.6rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Sidebar menu — compact, rounded, app-like                           */
+/* ------------------------------------------------------------------ */
+.menu {
+  font-size: 0.9rem;
+  padding: 1rem 0.75rem !important;
+}
+
+.menu__link {
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  font-weight: 500;
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  font-weight: 650;
+}
+
+.menu__list-item-collapsible:hover {
+  border-radius: 6px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Content                                                             */
+/* ------------------------------------------------------------------ */
+.markdown h1:first-child {
+  --ifm-h1-font-size: 2.4rem;
+  letter-spacing: -0.02em;
+}
+
+article a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+/* Inline code: subtle tinted chip */
+code {
+  background-color: oklch(0.554 0.046 257.417 / 0.07);
+  border: 1px solid var(--ifm-toc-border-color);
+  border-radius: 6px;
+  padding: 0.1rem 0.35rem;
+}
+
+[data-theme="dark"] code {
+  background-color: oklch(0.78 0.04 257.417 / 0.1);
+}
+
+/* Code blocks shouldn't get the inline chip treatment */
+.theme-code-block code,
+pre code {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+div[class^="codeBlockContainer"] {
+  border: 1px solid var(--ifm-toc-border-color);
+  border-radius: var(--ifm-global-radius);
+  box-shadow: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Buttons & cards                                                     */
+/* ------------------------------------------------------------------ */
+.button {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.card {
+  border: 1px solid var(--ifm-toc-border-color);
+  border-radius: var(--ifm-global-radius);
+  box-shadow: none;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.card:hover {
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-2px);
+}
+
+/* Tables & admonitions pick up the red accent automatically via --ifm vars */
+
+/* ------------------------------------------------------------------ */
+/* Hero (homepage)                                                     */
+/* ------------------------------------------------------------------ */
+.hero--primary {
+  --ifm-hero-background-color: #ffffff;
+  --ifm-hero-text-color: var(--ifm-color-content);
+  background: radial-gradient(
+    1200px 400px at 50% -10%,
+    oklch(0.554 0.046 257.417 / 0.12),
+    transparent 70%
+  );
+}
+
+[data-theme="dark"] .hero--primary {
+  --ifm-hero-background-color: var(--ifm-background-color);
+  background: radial-gradient(
+    1200px 400px at 50% -10%,
+    oklch(0.78 0.04 257.417 / 0.14),
+    transparent 70%
+  );
+}
+
+.hero__title {
+  font-size: 3.25rem;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+}
+
+.hero__subtitle {
+  color: var(--ifm-color-content-secondary);
+  font-weight: 500;
 }
