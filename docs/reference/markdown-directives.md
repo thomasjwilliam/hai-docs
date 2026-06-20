@@ -3,6 +3,7 @@
 Markdown directives are custom syntax elements that add interactive UI components — form inputs, buttons, and containers — directly into documents. They follow a consistent double-brace syntax and integrate with macros via the `hai.doc` library.
 
 **Syntax:**
+
 ```
 {{tagName attribute="value" booleanAttribute}}
 {{tagName attribute="value"}}content{{/tagName}}
@@ -15,7 +16,7 @@ Markdown directives are custom syntax elements that add interactive UI component
 ### Form directives
 
 | Directive                           | Self-closing | Description                                                             |
-|-------------------------------------|--------------|-------------------------------------------------------------------------|
+| ----------------------------------- | ------------ | ----------------------------------------------------------------------- |
 | [`button`](#button)                 | Yes          | Triggers a macro or snippet on click                                    |
 | [`checkbox-group`](#checkbox-group) | No           | Group of toggleable checkboxes                                          |
 | [`datalist`](#datalist)             | No           | Searchable dropdown with free-text fallback                             |
@@ -28,7 +29,7 @@ Markdown directives are custom syntax elements that add interactive UI component
 ### Container directives
 
 | Directive       | Description                                                        |
-|-----------------|--------------------------------------------------------------------|
+| --------------- | ------------------------------------------------------------------ |
 | [`note`](#note) | Styled callout block with optional type, title, and action buttons |
 | [`div`](#div)   | Generic block container with optional visual and action features   |
 | [`span`](#span) | Inline container for text or inline elements                       |
@@ -36,7 +37,7 @@ Markdown directives are custom syntax elements that add interactive UI component
 ### Global attributes
 
 | Attribute                   | Applies to | Description                                                       |
-|-----------------------------|------------|-------------------------------------------------------------------|
+| --------------------------- | ---------- | ----------------------------------------------------------------- |
 | [`id`](#id)                 | All        | Unique identifier; used with `hai.doc` query methods              |
 | [`class`](#class)           | All        | Space-separated CSS class names; also controls built-in behaviors |
 | [`aria-label`](#aria-label) | All        | Accessibility label for screen readers                            |
@@ -44,7 +45,7 @@ Markdown directives are custom syntax elements that add interactive UI component
 ### Built-in class names
 
 | Class                                        | Effect                                                      |
-|----------------------------------------------|-------------------------------------------------------------|
+| -------------------------------------------- | ----------------------------------------------------------- |
 | `commit`                                     | Adds a button to replace the element with its inner content |
 | `copy`                                       | Adds a button to copy content to clipboard (as HTML)        |
 | `fold`                                       | Adds a collapse/expand toggle                               |
@@ -99,7 +100,7 @@ Triggers a snippet or macro when clicked.
 **Attributes**
 
 | Attribute     | Required | Default     | Description                                                                                              |
-|---------------|----------|-------------|----------------------------------------------------------------------------------------------------------|
+| ------------- | -------- | ----------- | -------------------------------------------------------------------------------------------------------- |
 | `onclick`     | Yes      | —           | Snippet or macro trigger. Format: `$Name` or `$Name[ordinal]`                                            |
 | `text`        | Yes      | —           | Label displayed on the button                                                                            |
 | `color`       | No       | `primary`   | One of `primary` \| `secondary` \| `tertiary` \| `info` \| `success` \| `warning` \| `danger` \| `error` |
@@ -121,6 +122,7 @@ Triggers a snippet or macro when clicked.
 Renders a group of checkboxes. Each option is a nested [`option`](#option) directive.
 
 **Syntax:**
+
 ```
 {{checkbox-group ...attributes}}
   {{option value="..."}}
@@ -131,7 +133,7 @@ Renders a group of checkboxes. Each option is a nested [`option`](#option) direc
 **Attributes**
 
 | Attribute                   | Required | Default | Description                            |
-|-----------------------------|----------|---------|----------------------------------------|
+| --------------------------- | -------- | ------- | -------------------------------------- |
 | `value`                     | No       | —       | Comma-separated list of checked values |
 | `column`                    | No       | —       | Boolean. Stacks checkboxes vertically  |
 | `aria-label`, `id`, `class` | No       | —       | Global attributes                      |
@@ -153,6 +155,7 @@ Renders a group of checkboxes. Each option is a nested [`option`](#option) direc
 A searchable dropdown that also accepts free-text entry.
 
 **Syntax:**
+
 ```
 {{datalist ...attributes}}
   {{option value="..."}}
@@ -162,7 +165,7 @@ A searchable dropdown that also accepts free-text entry.
 **Attributes**
 
 | Attribute                   | Required | Default | Description                                                                            |
-|-----------------------------|----------|---------|----------------------------------------------------------------------------------------|
+| --------------------------- | -------- | ------- | -------------------------------------------------------------------------------------- |
 | `placeholder`               | No       | —       | Hint text when nothing is selected                                                     |
 | `value`                     | No       | —       | Currently selected or entered value                                                    |
 | `cols`                      | No       | —       | Width in characters. Use `fill` for 100% width. Defaults to content width when omitted |
@@ -194,7 +197,7 @@ Single-line text, date, or datetime-local field.
 **Attributes**
 
 | Attribute                   | Required | Default | Description                                         |
-|-----------------------------|----------|---------|-----------------------------------------------------|
+| --------------------------- | -------- | ------- | --------------------------------------------------- |
 | `type`                      | No       | `text`  | `text` \| `number` \| `date` \| `datetime-local`    |
 | `placeholder`               | No       | —       | Hint text when empty                                |
 | `value`                     | No       | —       | Current value                                       |
@@ -222,7 +225,7 @@ A single option used inside `checkbox-group`, `datalist`, `radio-group`, or `sel
 **Attributes**
 
 | Attribute                   | Required | Default         | Description                    |
-|-----------------------------|----------|-----------------|--------------------------------|
+| --------------------------- | -------- | --------------- | ------------------------------ |
 | `value`                     | Yes      | —               | The option's value             |
 | `label`                     | No       | Same as `value` | Display text shown to the user |
 | `aria-label`, `id`, `class` | No       | —               | Global attributes              |
@@ -240,6 +243,7 @@ A single option used inside `checkbox-group`, `datalist`, `radio-group`, or `sel
 Single-selection button group. Each option is a nested [`option`](#option) directive.
 
 **Syntax:**
+
 ```
 {{radio-group ...attributes}}
   {{option value="..."}}
@@ -249,7 +253,7 @@ Single-selection button group. Each option is a nested [`option`](#option) direc
 **Attributes**
 
 | Attribute                   | Required | Default | Description                              |
-|-----------------------------|----------|---------|------------------------------------------|
+| --------------------------- | -------- | ------- | ---------------------------------------- |
 | `value`                     | No       | —       | Value of the selected option             |
 | `column`                    | No       | —       | Boolean. Stacks radio buttons vertically |
 | `aria-label`, `id`, `class` | No       | —       | Global attributes                        |
@@ -271,6 +275,7 @@ Single-selection button group. Each option is a nested [`option`](#option) direc
 Fixed-choice dropdown. Each option is a nested [`option`](#option) directive.
 
 **Syntax:**
+
 ```
 {{select ...attributes}}
   {{option value="..."}}
@@ -280,7 +285,7 @@ Fixed-choice dropdown. Each option is a nested [`option`](#option) directive.
 **Attributes**
 
 | Attribute                   | Required | Default | Description                        |
-|-----------------------------|----------|---------|------------------------------------|
+| --------------------------- | -------- | ------- | ---------------------------------- |
 | `placeholder`               | No       | —       | Hint text when nothing is selected |
 | `value`                     | No       | —       | Value of the selected option       |
 | `aria-label`, `id`, `class` | No       | —       | Global attributes                  |
@@ -306,7 +311,7 @@ Multi-line text input.
 **Attributes**
 
 | Attribute                   | Required | Default | Description                                              |
-|-----------------------------|----------|---------|----------------------------------------------------------|
+| --------------------------- | -------- | ------- | -------------------------------------------------------- |
 | `placeholder`               | No       | —       | Hint text when empty                                     |
 | `rows`                      | No       | `2`     | Height in lines. Auto-resizes to content                 |
 | `cols`                      | No       | `fill`  | Width in characters (`fill` = 100% width)                |
@@ -328,6 +333,7 @@ Multi-line text input.
 A styled callout block with optional type-specific colors and action buttons.
 
 **Syntax:**
+
 ```
 {{note ...attributes}}
   content
@@ -337,7 +343,7 @@ A styled callout block with optional type-specific colors and action buttons.
 **Attributes**
 
 | Attribute                   | Required | Default   | Description                                                                            |
-|-----------------------------|----------|-----------|----------------------------------------------------------------------------------------|
+| --------------------------- | -------- | --------- | -------------------------------------------------------------------------------------- |
 | `type`                      | No       | —         | `info` \| `tip` \| `success` \| `warning` \| `error` \| `danger` — sets color and icon |
 | `title`                     | No       | Type name | Heading text. Defaults to the type name when `type` is set                             |
 | `fold`                      | No       | —         | Boolean. Adds collapse/expand toggle                                                   |
@@ -361,6 +367,7 @@ A styled callout block with optional type-specific colors and action buttons.
 Generic block container with optional visual emphasis and action buttons.
 
 **Syntax:**
+
 ```
 {{div ...attributes}}
   content
@@ -370,7 +377,7 @@ Generic block container with optional visual emphasis and action buttons.
 **Attributes**
 
 | Attribute                   | Required | Default | Description                                                  |
-|-----------------------------|----------|---------|--------------------------------------------------------------|
+| --------------------------- | -------- | ------- | ------------------------------------------------------------ |
 | `panel`                     | No       | —       | Boolean. Applies panel styling (background, border, padding) |
 | `fold`                      | No       | —       | Boolean. Adds collapse/expand toggle                         |
 | `commit`                    | No       | —       | Boolean. Adds button to unwrap content                       |
@@ -398,7 +405,7 @@ Inline container for wrapping text or inline elements with optional action butto
 **Attributes**
 
 | Attribute                   | Required | Default | Description                                       |
-|-----------------------------|----------|---------|---------------------------------------------------|
+| --------------------------- | -------- | ------- | ------------------------------------------------- |
 | `commit`                    | No       | —       | Boolean. Adds button to unwrap content            |
 | `copy`                      | No       | —       | Boolean. Adds button to copy content to clipboard |
 | `remove`                    | No       | —       | Boolean. Adds button to delete the span           |
