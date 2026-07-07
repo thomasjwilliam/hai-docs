@@ -6,10 +6,11 @@ Markdown directives are custom syntax elements that add interactive UI component
 
 ```
 {{tagName attribute="value" booleanAttribute}}
-{{tagName attribute="value"}}content{{/tagName}}
 ```
 
----
+```
+{{tagName attribute="value"}}content{{/tagName}}
+```
 
 ## Quick Reference
 
@@ -30,17 +31,16 @@ Markdown directives are custom syntax elements that add interactive UI component
 
 | Directive       | Description                                                        |
 | --------------- | ------------------------------------------------------------------ |
-| [`note`](#note) | Styled callout block with optional type, title, and action buttons |
-| [`div`](#div)   | Generic block container with optional visual and action features   |
 | [`span`](#span) | Inline container for text or inline elements                       |
+| [`div`](#div)   | Generic block container with optional visual and action features   |
+| [`note`](#note) | Styled callout block with optional type, title, and action buttons |
 
 ### Global attributes
 
-| Attribute                   | Applies to | Description                                                       |
-| --------------------------- | ---------- | ----------------------------------------------------------------- |
-| [`id`](#id)                 | All        | Unique identifier; used with `hai.doc` query methods              |
-| [`class`](#class)           | All        | Space-separated CSS class names; also controls built-in behaviors |
-| [`aria-label`](#aria-label) | All        | Accessibility label for screen readers                            |
+| Attribute         | Applies to | Description                                                       |
+| ----------------- | ---------- | ----------------------------------------------------------------- |
+| [`id`](#id)       | All        | Unique identifier; used with `hai.doc` query methods              |
+| [`class`](#class) | All        | Space-separated CSS class names; also controls built-in behaviors |
 
 ### Built-in class names
 
@@ -53,8 +53,6 @@ Markdown directives are custom syntax elements that add interactive UI component
 | `primary`, `secondary`, `tertiary`           | Presentation styles                                         |
 | `info`, `tip`, `success`, `warning`, `error` | Semantic color styles                                       |
 
----
-
 ## Global Attributes
 
 ### id
@@ -63,10 +61,11 @@ A unique identifier for the directive within the document. Required when targeti
 
 ```
 {{input id="customer-name"}}
-{{div id="summary-section"}}content{{/div}}
 ```
 
----
+```
+{{div id="summary-section"}}content{{/div}}
+```
 
 ### class
 
@@ -74,20 +73,11 @@ Space-separated CSS class names. In addition to custom styling, several built-in
 
 ```
 {{div class="fold"}}Collapsible section{{/div}}
+```
+
+```
 {{div class="commit copy"}}Content with two actions{{/div}}
 ```
-
----
-
-### aria-label
-
-Accessibility label for screen readers. Defaults to visible text (e.g., button text) when not set.
-
-```
-{{button aria-label="Submit the contact form" onclick="$SubmitForm" text="Submit"}}
-```
-
----
 
 ## Form Directives
 
@@ -99,23 +89,24 @@ Triggers a snippet or macro when clicked.
 
 **Attributes**
 
-| Attribute     | Required | Default     | Description                                                                                              |
-| ------------- | -------- | ----------- | -------------------------------------------------------------------------------------------------------- |
-| `onclick`     | Yes      | —           | Snippet or macro trigger. Format: `$Name` or `$Name[ordinal]`                                            |
-| `text`        | Yes      | —           | Label displayed on the button                                                                            |
-| `color`       | No       | `primary`   | One of `primary` \| `secondary` \| `tertiary` \| `info` \| `success` \| `warning` \| `danger` \| `error` |
-| `aria-label`  | No       | Button text | Accessibility label                                                                                      |
-| `id`, `class` | No       | —           | Global attributes                                                                                        |
+| Attribute | Required | Default | Description                                                   |
+| --------- | -------- | ------- | ------------------------------------------------------------- |
+| `onclick` | Yes      | —       | Snippet or macro trigger. Format: `$Name` or `$Name[ordinal]` |
+| `text`    | Yes      | —       | Label displayed on the button                                 |
 
-**Example**
+**Examples**
 
 ```
 {{button onclick="$SaveDraft" text="Save"}}
-{{button onclick="$DeleteItem" text="Delete" color="error"}}
-{{button onclick="$ProcessOrder[2]" text="Process" color="success"}}
 ```
 
----
+```
+{{button onclick="$DeleteItem" text="Delete" class="danger"}}
+```
+
+```
+{{button onclick="$ProcessOrder[2]" text="Process" class="success"}}
+```
 
 ### checkbox-group
 
@@ -132,13 +123,12 @@ Renders a group of checkboxes. Each option is a nested [`option`](#option) direc
 
 **Attributes**
 
-| Attribute                   | Required | Default | Description                            |
-| --------------------------- | -------- | ------- | -------------------------------------- |
-| `value`                     | No       | —       | Comma-separated list of checked values |
-| `column`                    | No       | —       | Boolean. Stacks checkboxes vertically  |
-| `aria-label`, `id`, `class` | No       | —       | Global attributes                      |
+| Attribute | Required | Default | Description                            |
+| --------- | -------- | ------- | -------------------------------------- |
+| `value`   | No       | —       | Comma-separated list of checked values |
+| `column`  | No       | —       | Boolean. Stacks checkboxes vertically  |
 
-**Example**
+**Examples**
 
 ```
 {{checkbox-group value="email,sms" column}}
@@ -147,8 +137,6 @@ Renders a group of checkboxes. Each option is a nested [`option`](#option) direc
   {{option value="phone" label="Phone"}}
 {{/checkbox-group}}
 ```
-
----
 
 ### datalist
 
@@ -164,14 +152,13 @@ A searchable dropdown that also accepts free-text entry.
 
 **Attributes**
 
-| Attribute                   | Required | Default | Description                                                                            |
-| --------------------------- | -------- | ------- | -------------------------------------------------------------------------------------- |
-| `placeholder`               | No       | —       | Hint text when nothing is selected                                                     |
-| `value`                     | No       | —       | Currently selected or entered value                                                    |
-| `cols`                      | No       | —       | Width in characters. Use `fill` for 100% width. Defaults to content width when omitted |
-| `aria-label`, `id`, `class` | No       | —       | Global attributes                                                                      |
+| Attribute     | Required | Default | Description                                                                            |
+| ------------- | -------- | ------- | -------------------------------------------------------------------------------------- |
+| `placeholder` | No       | —       | Hint text when nothing is selected                                                     |
+| `value`       | No       | —       | Currently selected or entered value                                                    |
+| `cols`        | No       | —       | Width in characters. Use `fill` for 100% width. Defaults to content width when omitted |
 
-**Example**
+**Examples**
 
 ```
 {{datalist placeholder="Select your role"}}
@@ -179,42 +166,56 @@ A searchable dropdown that also accepts free-text entry.
   {{option value="Designer"}}
   {{option value="Manager"}}
 {{/datalist}}
+```
 
+```
 {{datalist cols="30" placeholder="Select your role"}}
   {{option value="Developer"}}
   {{option value="Designer"}}
 {{/datalist}}
 ```
 
----
-
 ### input
 
-Single-line text, date, or datetime-local field.
+Single-line text, number, date, or datetime-local field.
 
 **Syntax:** `{{input ...attributes}}`
 
 **Attributes**
 
-| Attribute                   | Required | Default | Description                                         |
-| --------------------------- | -------- | ------- | --------------------------------------------------- |
-| `type`                      | No       | `text`  | `text` \| `number` \| `date` \| `datetime-local`    |
-| `placeholder`               | No       | —       | Hint text when empty                                |
-| `value`                     | No       | —       | Current value                                       |
-| `cols`                      | No       | `15`    | Width in characters. Use `fill` for 100% width      |
-| `commit`                    | No       | —       | Boolean. Replaces the input with its value on entry |
-| `aria-label`, `id`, `class` | No       | —       | Global attributes                                   |
+| Attribute     | Required | Default | Description                                                                                                     |
+| ------------- | -------- | ------- | --------------------------------------------------------------------------------------------------------------- |
+| `type`        | No       | `text`  | `text` \| `number` \| `date` \| `datetime-local`                                                                |
+| `placeholder` | No       | —       | Hint text when empty                                                                                            |
+| `value`       | No       | —       | Current value                                                                                                   |
+| `cols`        | No       | `20`    | Width in characters (`text`, `number`). Use `fill` for 100% width. `date`/`datetime-local` support `fill` only. |
+| `commit`      | No       | —       | Boolean. Replaces the input with its value on entry                                                             |
 
 **Example**
 
 ```
-{{input type="text" placeholder="Full name" id="name"}}
-{{input type="date"}}
-{{input type="text" cols="fill" placeholder="Full-width field"}}
-{{input commit placeholder="Quick entry"}}
+{{input type="text" placeholder="Your name"}}
 ```
 
----
+```
+{{input type="text" placeholder="Your name" value="Alice"}}
+```
+
+```
+{{input type="text" placeholder="Your name" cols="fill"}}
+```
+
+```
+{{input type="text" placeholder="Quick entry" class="commit"}}
+```
+
+```
+{{input type="date"}}
+```
+
+```
+{{input type="datetime-local" value="1970-01-01T00:00"}}
+```
 
 ### option
 
@@ -224,16 +225,19 @@ A single option used inside `checkbox-group`, `datalist`, `radio-group`, or `sel
 
 **Attributes**
 
-| Attribute                   | Required | Default         | Description                    |
-| --------------------------- | -------- | --------------- | ------------------------------ |
-| `value`                     | Yes      | —               | The option's value             |
-| `label`                     | No       | Same as `value` | Display text shown to the user |
-| `aria-label`, `id`, `class` | No       | —               | Global attributes              |
+| Attribute | Required | Default         | Description                    |
+| --------- | -------- | --------------- | ------------------------------ |
+| `value`   | Yes      | —               | The option's value             |
+| `label`   | No       | Same as `value` | Display text shown to the user |
 
-**Example**
+**Examples**
 
 ```
-{{option value="xl" label="Extra Large"}}
+{{option value="Yes"}}
+```
+
+```
+{{option value="1" label="Yes"}}
 ```
 
 ---
@@ -252,11 +256,10 @@ Single-selection button group. Each option is a nested [`option`](#option) direc
 
 **Attributes**
 
-| Attribute                   | Required | Default | Description                              |
-| --------------------------- | -------- | ------- | ---------------------------------------- |
-| `value`                     | No       | —       | Value of the selected option             |
-| `column`                    | No       | —       | Boolean. Stacks radio buttons vertically |
-| `aria-label`, `id`, `class` | No       | —       | Global attributes                        |
+| Attribute | Required | Default | Description                              |
+| --------- | -------- | ------- | ---------------------------------------- |
+| `value`   | No       | —       | Value of the selected option             |
+| `column`  | No       | —       | Boolean. Stacks radio buttons vertically |
 
 **Example**
 
@@ -267,8 +270,6 @@ Single-selection button group. Each option is a nested [`option`](#option) direc
   {{option value="high" label="High"}}
 {{/radio-group}}
 ```
-
----
 
 ### select
 
@@ -284,11 +285,11 @@ Fixed-choice dropdown. Each option is a nested [`option`](#option) directive.
 
 **Attributes**
 
-| Attribute                   | Required | Default | Description                        |
-| --------------------------- | -------- | ------- | ---------------------------------- |
-| `placeholder`               | No       | —       | Hint text when nothing is selected |
-| `value`                     | No       | —       | Value of the selected option       |
-| `aria-label`, `id`, `class` | No       | —       | Global attributes                  |
+| Attribute     | Required | Default | Description                                                                                   |
+| ------------- | -------- | ------- | --------------------------------------------------------------------------------------------- |
+| `placeholder` | No       | —       | Hint text when nothing is selected                                                            |
+| `value`       | No       | —       | Value of the selected option                                                                  |
+| `cols`        | No       | —       | Width in characters (min-width floor; grows to the selected label). Use `fill` for 100% width |
 
 **Example**
 
@@ -300,7 +301,13 @@ Fixed-choice dropdown. Each option is a nested [`option`](#option) directive.
 {{/select}}
 ```
 
----
+```
+{{checkbox-group column value="foo,baz"}}
+    {{option value="foo"}}
+    {{option value="bar" label="Bar Label"}}
+    {{option value="baz"}}
+{{/checkbox-group}}
+```
 
 ### textarea
 
@@ -310,21 +317,18 @@ Multi-line text input.
 
 **Attributes**
 
-| Attribute                   | Required | Default | Description                                              |
-| --------------------------- | -------- | ------- | -------------------------------------------------------- |
-| `placeholder`               | No       | —       | Hint text when empty                                     |
-| `rows`                      | No       | `2`     | Height in lines. Auto-resizes to content                 |
-| `cols`                      | No       | `fill`  | Width in characters (`fill` = 100% width)                |
-| `commit`                    | No       | —       | Boolean. Replaces the textarea with its content on entry |
-| `aria-label`, `id`, `class` | No       | —       | Global attributes                                        |
+| Attribute     | Required | Default | Description                                              |
+| ------------- | -------- | ------- | -------------------------------------------------------- |
+| `placeholder` | No       | —       | Hint text when empty                                     |
+| `rows`        | No       | `2`     | Height in lines. Auto-resizes to content                 |
+| `cols`        | No       | `fill`  | Width in characters (`fill` = 100% width)                |
+| `commit`      | No       | —       | Boolean. Replaces the textarea with its content on entry |
 
 **Example**
 
 ```
 {{textarea placeholder="Describe the issue..." rows="6"}}{{/textarea}}
 ```
-
----
 
 ## Container Directives
 
@@ -342,15 +346,14 @@ A styled callout block with optional type-specific colors and action buttons.
 
 **Attributes**
 
-| Attribute                   | Required | Default   | Description                                                                            |
-| --------------------------- | -------- | --------- | -------------------------------------------------------------------------------------- |
-| `type`                      | No       | —         | `info` \| `tip` \| `success` \| `warning` \| `error` \| `danger` — sets color and icon |
-| `title`                     | No       | Type name | Heading text. Defaults to the type name when `type` is set                             |
-| `fold`                      | No       | —         | Boolean. Adds collapse/expand toggle                                                   |
-| `commit`                    | No       | —         | Boolean. Adds button to unwrap content                                                 |
-| `copy`                      | No       | —         | Boolean. Adds button to copy content to clipboard                                      |
-| `remove`                    | No       | —         | Boolean. Adds button to delete the note                                                |
-| `aria-label`, `id`, `class` | No       | —         | Global attributes                                                                      |
+| Attribute | Required | Default   | Description                                                                            |
+| --------- | -------- | --------- | -------------------------------------------------------------------------------------- |
+| `type`    | No       | —         | `info` \| `tip` \| `success` \| `warning` \| `error` \| `danger` — sets color and icon |
+| `title`   | No       | Type name | Heading text. Defaults to the type name when `type` is set                             |
+| `fold`    | No       | —         | Boolean. Adds collapse/expand toggle                                                   |
+| `commit`  | No       | —         | Boolean. Adds button to unwrap content                                                 |
+| `copy`    | No       | —         | Boolean. Adds button to copy content to clipboard                                      |
+| `remove`  | No       | —         | Boolean. Adds button to delete the note                                                |
 
 **Example**
 
@@ -359,8 +362,6 @@ A styled callout block with optional type-specific colors and action buttons.
   Check that all required fields are filled in before submitting.
 {{/note}}
 ```
-
----
 
 ### div
 
@@ -376,14 +377,13 @@ Generic block container with optional visual emphasis and action buttons.
 
 **Attributes**
 
-| Attribute                   | Required | Default | Description                                                  |
-| --------------------------- | -------- | ------- | ------------------------------------------------------------ |
-| `panel`                     | No       | —       | Boolean. Applies panel styling (background, border, padding) |
-| `fold`                      | No       | —       | Boolean. Adds collapse/expand toggle                         |
-| `commit`                    | No       | —       | Boolean. Adds button to unwrap content                       |
-| `copy`                      | No       | —       | Boolean. Adds button to copy content to clipboard            |
-| `remove`                    | No       | —       | Boolean. Adds button to delete the div                       |
-| `aria-label`, `id`, `class` | No       | —       | Global attributes                                            |
+| Attribute | Required | Default | Description                                                  |
+| --------- | -------- | ------- | ------------------------------------------------------------ |
+| `panel`   | No       | —       | Boolean. Applies panel styling (background, border, padding) |
+| `fold`    | No       | —       | Boolean. Adds collapse/expand toggle                         |
+| `commit`  | No       | —       | Boolean. Adds button to unwrap content                       |
+| `copy`    | No       | —       | Boolean. Adds button to copy content to clipboard            |
+| `remove`  | No       | —       | Boolean. Adds button to delete the div                       |
 
 **Example**
 
@@ -394,8 +394,6 @@ Generic block container with optional visual emphasis and action buttons.
 {{/div}}
 ```
 
----
-
 ### span
 
 Inline container for wrapping text or inline elements with optional action buttons.
@@ -404,20 +402,17 @@ Inline container for wrapping text or inline elements with optional action butto
 
 **Attributes**
 
-| Attribute                   | Required | Default | Description                                       |
-| --------------------------- | -------- | ------- | ------------------------------------------------- |
-| `commit`                    | No       | —       | Boolean. Adds button to unwrap content            |
-| `copy`                      | No       | —       | Boolean. Adds button to copy content to clipboard |
-| `remove`                    | No       | —       | Boolean. Adds button to delete the span           |
-| `aria-label`, `id`, `class` | No       | —       | Global attributes                                 |
+| Attribute | Required | Default | Description                                       |
+| --------- | -------- | ------- | ------------------------------------------------- |
+| `commit`  | No       | —       | Boolean. Adds button to unwrap content            |
+| `copy`    | No       | —       | Boolean. Adds button to copy content to clipboard |
+| `remove`  | No       | —       | Boolean. Adds button to delete the span           |
 
 **Example**
 
 ```
 Customer {{span commit}}{{input placeholder="Name"}}{{/span}} placed an order.
 ```
-
----
 
 <details>
 <summary>Tips and best practices</summary>

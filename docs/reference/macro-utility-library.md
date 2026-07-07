@@ -16,51 +16,50 @@ const {app, doc} = hai
 
 ### hai.app
 
-| Member             | Kind     | Description                                |
-| ------------------- | -------- | ------------------------------------------- |
-| [`version`](#version) | Property | The running Hai application version         |
-| [`env`](#env)         | Property | The current application environment         |
-| [`notify`](#notify)   | Method   | Displays a notification to the user         |
+| Member              | Kind   | Description                         |
+| ------------------- | ------ | ----------------------------------- |
+| [`notify`](#notify) | Method | Displays a notification to the user |
 
 ### hai.doc
 
-| Member                                                       | Kind     | Description                                          |
-| -------------------------------------------------------------- | -------- | ----------------------------------------------------- |
-| [`title`](#title)                                               | Property | The document title (read-only)                        |
-| [`content`](#content)                                           | Property | The document content (read-only)                       |
-| [`getTitle`](#gettitle)                                         | Method   | Gets the document title                                |
-| [`setTitle`](#settitle)                                         | Method   | Sets the document title                                |
-| [`getContent`](#getcontent)                                     | Method   | Gets the document content                              |
-| [`setContent`](#setcontent)                                     | Method   | Replaces the document content                          |
-| [`appendContent`](#appendcontent)                               | Method   | Appends content to the end of the document             |
-| [`prependContent`](#prependcontent)                             | Method   | Inserts content at the start of the document           |
-| [`copyToClipboard`](#copytoclipboard)                           | Method   | Copies text to the clipboard                           |
-| [`createDirective`](#createdirective)                           | Method   | Creates a new directive                                |
-| [`getDirectiveById (doc)`](#getdirectivebyid-doc)               | Method   | Finds a directive in the document by `id`              |
-| [`getDirectiveByAttVal (doc)`](#getdirectivebyattval-doc)       | Method   | Finds the first directive with a matching attribute    |
-| [`getDirectivesByAttVal (doc)`](#getdirectivesbyattval-doc)     | Method   | Finds all directives with a matching attribute         |
-| [`getDirectivesByClass (doc)`](#getdirectivesbyclass-doc)       | Method   | Finds all directives with a class                      |
-| [`getDirectivesByTagName (doc)`](#getdirectivesbytagname-doc)   | Method   | Finds all directives with a tag name                   |
+| Member                                                        | Kind     | Description                                         |
+| ------------------------------------------------------------- | -------- | --------------------------------------------------- |
+| [`docTitle`](#doctitle)                                       | Property | The document title                                  |
+| [`docContent`](#doccontent)                                   | Property | The document content                                |
+| [`getTitle`](#gettitle)                                       | Method   | Gets the document title                             |
+| [`setTitle`](#settitle)                                       | Method   | Sets the document title                             |
+| [`getContent`](#getcontent)                                   | Method   | Gets the document content                           |
+| [`setContent`](#setcontent)                                   | Method   | Replaces the document content                       |
+| [`appendContent`](#appendcontent)                             | Method   | Appends content to the end of the document          |
+| [`prependContent`](#prependcontent)                           | Method   | Inserts content at the start of the document        |
+| [`copyToClipboard`](#copytoclipboard)                         | Method   | Copies text to the clipboard                        |
+| [`createDirective`](#createdirective)                         | Method   | Creates a new directive                             |
+| [`getDirectiveById (doc)`](#getdirectivebyid-doc)             | Method   | Finds a directive in the document by `id`           |
+| [`getDirectiveByAttVal (doc)`](#getdirectivebyattval-doc)     | Method   | Finds the first directive with a matching attribute |
+| [`getDirectivesByAttVal (doc)`](#getdirectivesbyattval-doc)   | Method   | Finds all directives with a matching attribute      |
+| [`getDirectivesByClass (doc)`](#getdirectivesbyclass-doc)     | Method   | Finds all directives with a class                   |
+| [`getDirectivesByTagName (doc)`](#getdirectivesbytagname-doc) | Method   | Finds all directives with a tag name                |
 
 ### DirectiveObject
 
-| Member                                                                  | Kind                  | Description                                            |
-| -------------------------------------------------------------------------- | --------------------- | -------------------------------------------------------- |
-| [`tagName`](#tagname)                                                      | Property (read-only)  | The directive's tag name                                |
-| [`innerText`](#innertext)                                                  | Property              | Content inside the directive                             |
-| — *(dynamic)*                                                              | Property              | Any attribute, readable/writable as a plain property — see [Dynamic attribute access](#dynamic-attribute-access) |
-| [`getAttribute`](#getattribute)                                            | Method                | Reads an attribute value                                 |
-| [`setAttribute`](#setattribute)                                            | Method                | Sets or removes an attribute                             |
-| [`getDirectiveById (directive)`](#getdirectivebyid-directive)             | Method                | Finds a nested directive by `id`                         |
-| [`getDirectiveByAttVal (directive)`](#getdirectivebyattval-directive)     | Method                | Finds the first nested directive with a matching attribute |
-| [`getDirectivesByAttVal (directive)`](#getdirectivesbyattval-directive)   | Method                | Finds all nested directives with a matching attribute    |
-| [`getDirectivesByClass (directive)`](#getdirectivesbyclass-directive)     | Method                | Finds all nested directives with a class                 |
-| [`getDirectivesByTagName (directive)`](#getdirectivesbytagname-directive) | Method                | Finds all nested directives with a tag name               |
-| [`insertBefore`](#insertbefore)                                            | Method                | Inserts content immediately before this directive        |
-| [`insertAfter`](#insertafter)                                              | Method                | Inserts content immediately after this directive          |
-| [`replaceWith`](#replacewith)                                              | Method                | Replaces this directive                                  |
-| [`remove`](#remove)                                                        | Method                | Removes this directive from the document                 |
-| [`toString`](#tostring)                                                    | Method                | Serializes the directive back to `{{tagName ...}}` text  |
+| Member                                                                    | Kind                 | Description                                                                        |
+| ------------------------------------------------------------------------- | -------------------- | ---------------------------------------------------------------------------------- |
+| [`tagName`](#tagname)                                                     | Property (read-only) | The directive's tag name                                                           |
+| [`innerMD`](#innermd)                                                     | Property             | Raw inner Markdown source of the directive                                         |
+| [`innerText`](#innertext-deprecated)                                      | Property             | Deprecated alias for `innerMD`                                                     |
+| [`value`](#value)                                                         | Property             | On `textarea`, alias for `innerMD`; on other tags, alias for the `value` attribute |
+| [`getAttribute`](#getattribute)                                           | Method               | Reads an attribute value                                                           |
+| [`setAttribute`](#setattribute)                                           | Method               | Sets or removes an attribute                                                       |
+| [`getDirectiveById (directive)`](#getdirectivebyid-directive)             | Method               | Finds a nested directive by `id`                                                   |
+| [`getDirectiveByAttVal (directive)`](#getdirectivebyattval-directive)     | Method               | Finds the first nested directive with a matching attribute                         |
+| [`getDirectivesByAttVal (directive)`](#getdirectivesbyattval-directive)   | Method               | Finds all nested directives with a matching attribute                              |
+| [`getDirectivesByClass (directive)`](#getdirectivesbyclass-directive)     | Method               | Finds all nested directives with a class                                           |
+| [`getDirectivesByTagName (directive)`](#getdirectivesbytagname-directive) | Method               | Finds all nested directives with a tag name                                        |
+| [`insertBefore`](#insertbefore)                                           | Method               | Inserts content immediately before this directive                                  |
+| [`insertAfter`](#insertafter)                                             | Method               | Inserts content immediately after this directive                                   |
+| [`replaceWith`](#replacewith)                                             | Method               | Replaces this directive                                                            |
+| [`remove`](#remove)                                                       | Method               | Removes this directive from the document                                           |
+| [`toString`](#tostring)                                                   | Method               | Serializes the directive back to `{{tagName ...}}` text                            |
 
 ---
 
@@ -72,8 +71,9 @@ Directives are the template elements that make up a document:
 {{tagName attr="value" booleanAttr}}content{{/tagName}}
 ```
 
-Self-closing directives (`input`, `textarea`, `button`, `option`, ...) have no
-closing tag:
+Self-closing directives (`input`, `button`, `option`) have no closing tag. All
+other tag names — including `textarea`, `note`, `div`, and any custom name —
+are block directives with an opening and closing tag:
 
 ```
 {{input type="text" id="name"}}
@@ -98,37 +98,7 @@ reference.
 
 ## hai.app
 
-Application-level context and user-facing notifications.
-
-### version
-
-The running Hai application version.
-
-**Type:** `string` (read-only)
-
-**Example:**
-
-```javascript
-console.log(`Running Hai v${app.version}`)
-```
-
----
-
-### env
-
-The current application environment.
-
-**Type:** `string` (read-only)
-
-**Example:**
-
-```javascript
-if (app.env === "development") {
-  app.notify({type: "info", message: "Running in dev mode"})
-}
-```
-
----
+User-facing notifications.
 
 ### notify
 
@@ -147,12 +117,12 @@ notify(notification: {
 
 **Parameters**
 
-| Parameter            | Type     | Required | Default | Description                                          |
-| --------------------- | -------- | -------- | ------- | ------------------------------------------------------ |
-| `notification.message` | `string` | Yes      | —       | The main notification message                          |
-| `notification.type`    | `string` | Yes      | —       | One of `info` \| `success` \| `warning` \| `error`     |
-| `notification.sticky`  | `boolean`| No       | `false` | Keeps the notification visible until manually dismissed |
-| `notification.title`   | `string` | No       | —       | Optional title shown above the message                 |
+| Parameter              | Type      | Required | Default | Description                                             |
+| ---------------------- | --------- | -------- | ------- | ------------------------------------------------------- |
+| `notification.message` | `string`  | Yes      | —       | The main notification message                           |
+| `notification.type`    | `string`  | Yes      | —       | One of `info` \| `success` \| `warning` \| `error`      |
+| `notification.sticky`  | `boolean` | No       | `false` | Keeps the notification visible until manually dismissed |
+| `notification.title`   | `string`  | No       | —       | Optional title shown above the message                  |
 
 **Example:**
 
@@ -186,30 +156,34 @@ Utilities for reading and manipulating document content, title, and
 directives. Methods that locate directives return `DirectiveObject`
 instances — see [DirectiveObject](#directiveobject).
 
-### title
+### docTitle
 
-The document title.
+The document title. Writable directly, or via [`setTitle`](#settitle) — both
+update the same underlying value.
 
-**Type:** `string` (read-only — use [`setTitle`](#settitle) to change it)
+**Type:** `string`
 
 **Example:**
 
 ```javascript
-console.log("Current title:", doc.title)
+console.log("Current title:", doc.docTitle)
+doc.docTitle = "My Updated Document"
 ```
 
 ---
 
-### content
+### docContent
 
-The document content.
+The document content. Writable directly, or via [`setContent`](#setcontent) —
+both update the same underlying value.
 
-**Type:** `string` (read-only — use [`setContent`](#setcontent) to change it)
+**Type:** `string`
 
 **Example:**
 
 ```javascript
-console.log("Document has", doc.content.length, "characters")
+console.log("Document has", doc.docContent.length, "characters")
+doc.docContent = "{{div}}New document content{{/div}}"
 ```
 
 ---
@@ -247,9 +221,9 @@ setTitle(title: string | DirectiveObject): void
 
 **Parameters**
 
-| Parameter | Type                          | Required | Default | Description       |
-| --------- | ------------------------------ | -------- | ------- | ------------------ |
-| `title`   | `string \| DirectiveObject`    | Yes      | —       | The new document title |
+| Parameter | Type                        | Required | Default | Description            |
+| --------- | --------------------------- | -------- | ------- | ---------------------- |
+| `title`   | `string \| DirectiveObject` | Yes      | —       | The new document title |
 
 **Example:**
 
@@ -293,8 +267,8 @@ setContent(content: string | DirectiveObject): void
 **Parameters**
 
 | Parameter | Type                        | Required | Default | Description              |
-| --------- | ---------------------------- | -------- | ------- | -------------------------- |
-| `content` | `string \| DirectiveObject`  | Yes      | —       | The new document content    |
+| --------- | --------------------------- | -------- | ------- | ------------------------ |
+| `content` | `string \| DirectiveObject` | Yes      | —       | The new document content |
 
 **Example:**
 
@@ -316,9 +290,9 @@ appendContent(content: string | DirectiveObject): void
 
 **Parameters**
 
-| Parameter | Type                        | Required | Default | Description                  |
-| --------- | ---------------------------- | -------- | ------- | ------------------------------ |
-| `content` | `string \| DirectiveObject`  | Yes      | —       | The content to append           |
+| Parameter | Type                        | Required | Default | Description           |
+| --------- | --------------------------- | -------- | ------- | --------------------- |
+| `content` | `string \| DirectiveObject` | Yes      | —       | The content to append |
 
 **Example:**
 
@@ -342,14 +316,14 @@ prependContent(content: string | DirectiveObject): void
 
 **Parameters**
 
-| Parameter | Type                        | Required | Default | Description                   |
-| --------- | ---------------------------- | -------- | ------- | -------------------------------- |
-| `content` | `string \| DirectiveObject`  | Yes      | —       | The content to prepend            |
+| Parameter | Type                        | Required | Default | Description            |
+| --------- | --------------------------- | -------- | ------- | ---------------------- |
+| `content` | `string \| DirectiveObject` | Yes      | —       | The content to prepend |
 
 **Example:**
 
 ```javascript
-doc.prependContent("{{note type=\"info\"}}Generated by macro{{/note}}")
+doc.prependContent('{{note type="info"}}Generated by macro{{/note}}')
 ```
 
 ---
@@ -369,10 +343,10 @@ copyToClipboard(options?: {
 
 **Parameters**
 
-| Parameter        | Type                       | Required | Default   | Description                                              |
-| ------------------ | ---------------------------- | -------- | --------- | ----------------------------------------------------------- |
-| `options.text`     | `string \| DirectiveObject`   | No       | Document content | Text to copy. Defaults to the current document content when omitted |
-| `options.format`   | `"plain" \| "html"`           | No       | `"plain"` | Clipboard format                                              |
+| Parameter        | Type                        | Required | Default          | Description                                                         |
+| ---------------- | --------------------------- | -------- | ---------------- | ------------------------------------------------------------------- |
+| `options.text`   | `string \| DirectiveObject` | No       | Document content | Text to copy. Defaults to the current document content when omitted |
+| `options.format` | `"plain" \| "html"`         | No       | `"plain"`        | Clipboard format                                                    |
 
 **Example:**
 
@@ -398,12 +372,14 @@ createDirective(localName: string): DirectiveObject
 
 **Parameters**
 
-| Parameter   | Type     | Required | Default | Description                                       |
-| ------------ | -------- | -------- | ------- | ---------------------------------------------------- |
-| `localName`  | `string` | Yes      | —       | The tag name for the directive (e.g. `div`, `input`) |
+| Parameter   | Type     | Required | Default | Description                                          |
+| ----------- | -------- | -------- | ------- | ---------------------------------------------------- |
+| `localName` | `string` | Yes      | —       | The tag name for the directive (e.g. `div`, `input`) |
 
-**Returns:** A new `DirectiveObject`. Self-closing tags (`input`, `textarea`,
-`button`, `option`) are created without a closing tag.
+**Returns:** A new `DirectiveObject`. Self-closing tags (`input`, `button`,
+`option`) are created without a closing tag. All other tag names — including
+`textarea` — are created as a block directive with an opening and closing
+tag.
 
 **Example:**
 
@@ -431,9 +407,9 @@ getDirectiveById(id: string): DirectiveObject | undefined
 
 **Parameters**
 
-| Parameter | Type     | Required | Default | Description            |
-| --------- | -------- | -------- | ------- | ------------------------ |
-| `id`      | `string` | Yes      | —       | The id to search for       |
+| Parameter | Type     | Required | Default | Description          |
+| --------- | -------- | -------- | ------- | -------------------- |
+| `id`      | `string` | Yes      | —       | The id to search for |
 
 **Returns:** The matching `DirectiveObject`, or `undefined` if not found.
 
@@ -460,10 +436,10 @@ getDirectiveByAttVal(att: string, val: string): DirectiveObject | undefined
 
 **Parameters**
 
-| Parameter | Type     | Required | Default | Description                  |
-| --------- | -------- | -------- | ------- | ------------------------------- |
+| Parameter | Type     | Required | Default | Description                      |
+| --------- | -------- | -------- | ------- | -------------------------------- |
 | `att`     | `string` | Yes      | —       | The attribute name to search for |
-| `val`     | `string` | Yes      | —       | The attribute value to match      |
+| `val`     | `string` | Yes      | —       | The attribute value to match     |
 
 **Returns:** The matching `DirectiveObject`, or `undefined` if not found.
 
@@ -490,10 +466,10 @@ getDirectivesByAttVal(att: string, val: string): DirectiveObject[]
 
 **Parameters**
 
-| Parameter | Type     | Required | Default | Description                  |
-| --------- | -------- | -------- | ------- | ------------------------------- |
+| Parameter | Type     | Required | Default | Description                      |
+| --------- | -------- | -------- | ------- | -------------------------------- |
 | `att`     | `string` | Yes      | —       | The attribute name to search for |
-| `val`     | `string` | Yes      | —       | The attribute value to match      |
+| `val`     | `string` | Yes      | —       | The attribute value to match     |
 
 **Returns:** Array of matching `DirectiveObject` instances.
 
@@ -520,8 +496,8 @@ getDirectivesByClass(cls: string): DirectiveObject[]
 
 **Parameters**
 
-| Parameter | Type     | Required | Default | Description                          |
-| --------- | -------- | -------- | ------- | ---------------------------------------- |
+| Parameter | Type     | Required | Default | Description                                                         |
+| --------- | -------- | -------- | ------- | ------------------------------------------------------------------- |
 | `cls`     | `string` | Yes      | —       | The class name to search for (matched within space-separated lists) |
 
 **Returns:** Array of matching `DirectiveObject` instances.
@@ -549,9 +525,9 @@ getDirectivesByTagName(tagName: string): DirectiveObject[]
 
 **Parameters**
 
-| Parameter | Type     | Required | Default | Description                            |
-| --------- | -------- | -------- | ------- | ----------------------------------------- |
-| `tagName` | `string` | Yes      | —       | The tag name to search for (e.g. `note`)   |
+| Parameter | Type     | Required | Default | Description                              |
+| --------- | -------- | -------- | ------- | ---------------------------------------- |
+| `tagName` | `string` | Yes      | —       | The tag name to search for (e.g. `note`) |
 
 **Returns:** Array of matching `DirectiveObject` instances.
 
@@ -587,22 +563,56 @@ console.log(dir.tagName) // "div"
 
 ---
 
-### innerText
+### innerMD
 
-The text content inside the directive. `undefined` for self-closing
-directives; setting it on one throws.
+The raw inner Markdown source inside the directive — the `innerHTML` analogue
+for Markdown. Returns `""` when empty, including for self-closing directives
+(never `undefined`). Setting it on a self-closing directive throws.
 
-**Type:** `string | DirectiveObject | undefined`
+**Type:** `string | DirectiveObject`
 
 **Example:**
 
 ```javascript
 const note = doc.getDirectiveById("my-note")
-console.log(note.innerText)
-note.innerText = "Updated note content"
+console.log(note.innerMD)
+note.innerMD = "Updated note content"
 
 const input = doc.getDirectivesByTagName("input")[0]
-console.log(input.innerText) // undefined
+console.log(input.innerMD) // ""  (self-closing, DOM parity)
+```
+
+---
+
+### innerText (deprecated)
+
+Deprecated alias for `innerMD`, kept so existing scripts keep working. Returns
+and sets the identical value. Prefer `innerMD` in new scripts.
+
+---
+
+### value
+
+DOM-parity property whose meaning depends on the tag:
+
+- On `textarea`, it's an alias for [`innerMD`](#innermd) — leading/trailing
+  single newlines from the block markdown syntax are trimmed on read.
+  Setting it writes the inner content, same as `innerMD`.
+- On any other tag (e.g. `input`), it's a plain alias for the `value`
+  attribute — equivalent to `getAttribute("value")` /
+  `setAttribute("value", ...)`.
+
+**Type:** `string | undefined`
+
+**Example:**
+
+```javascript
+const textarea = doc.getDirectivesByTagName("textarea")[0]
+textarea.value = "Multi-line\ncontent"
+console.log(textarea.value) // "Multi-line\ncontent"
+
+const input = doc.getDirectivesByTagName("input")[0]
+input.value = "default text" // same as input.setAttribute("value", "default text")
 ```
 
 ---
@@ -648,9 +658,9 @@ getAttribute(name: string): string | null
 
 **Parameters**
 
-| Parameter | Type     | Required | Default | Description         |
-| --------- | -------- | -------- | ------- | --------------------- |
-| `name`    | `string` | Yes      | —       | The attribute name      |
+| Parameter | Type     | Required | Default | Description        |
+| --------- | -------- | -------- | ------- | ------------------ |
+| `name`    | `string` | Yes      | —       | The attribute name |
 
 **Returns:** The attribute value, an empty string for boolean attributes, or
 `null` if the attribute is not set.
@@ -679,10 +689,10 @@ setAttribute(name: string, val: string | boolean): void
 
 **Parameters**
 
-| Parameter | Type                | Required | Default | Description                                                        |
-| --------- | -------------------- | -------- | ------- | ---------------------------------------------------------------------- |
-| `name`    | `string`             | Yes      | —       | The attribute name                                                       |
-| `val`     | `string \| boolean`  | Yes      | —       | The value to set. Use `true` for boolean attributes; `false`/`null`/`undefined` removes the attribute |
+| Parameter | Type                | Required | Default | Description                                                                                           |
+| --------- | ------------------- | -------- | ------- | ----------------------------------------------------------------------------------------------------- |
+| `name`    | `string`            | Yes      | —       | The attribute name                                                                                    |
+| `val`     | `string \| boolean` | Yes      | —       | The value to set. Use `true` for boolean attributes; `false`/`null`/`undefined` removes the attribute |
 
 **Example:**
 
@@ -708,9 +718,9 @@ getDirectiveById(id: string): DirectiveObject | undefined
 
 **Parameters**
 
-| Parameter | Type     | Required | Default | Description      |
-| --------- | -------- | -------- | ------- | ------------------- |
-| `id`      | `string` | Yes      | —       | The id to search for  |
+| Parameter | Type     | Required | Default | Description          |
+| --------- | -------- | -------- | ------- | -------------------- |
+| `id`      | `string` | Yes      | —       | The id to search for |
 
 **Returns:** The matching `DirectiveObject`, or `undefined` if not found.
 
@@ -736,10 +746,10 @@ getDirectiveByAttVal(att: string, val: string): DirectiveObject | undefined
 
 **Parameters**
 
-| Parameter | Type     | Required | Default | Description                  |
-| --------- | -------- | -------- | ------- | ------------------------------- |
-| `att`     | `string` | Yes      | —       | The attribute name to search for  |
-| `val`     | `string` | Yes      | —       | The attribute value to match       |
+| Parameter | Type     | Required | Default | Description                      |
+| --------- | -------- | -------- | ------- | -------------------------------- |
+| `att`     | `string` | Yes      | —       | The attribute name to search for |
+| `val`     | `string` | Yes      | —       | The attribute value to match     |
 
 **Returns:** The matching `DirectiveObject`, or `undefined` if not found.
 
@@ -765,10 +775,10 @@ getDirectivesByAttVal(att: string, val: string): DirectiveObject[]
 
 **Parameters**
 
-| Parameter | Type     | Required | Default | Description                  |
-| --------- | -------- | -------- | ------- | ------------------------------- |
-| `att`     | `string` | Yes      | —       | The attribute name to search for  |
-| `val`     | `string` | Yes      | —       | The attribute value to match       |
+| Parameter | Type     | Required | Default | Description                      |
+| --------- | -------- | -------- | ------- | -------------------------------- |
+| `att`     | `string` | Yes      | —       | The attribute name to search for |
+| `val`     | `string` | Yes      | —       | The attribute value to match     |
 
 **Returns:** Array of matching `DirectiveObject` instances.
 
@@ -794,8 +804,8 @@ getDirectivesByClass(cls: string): DirectiveObject[]
 
 **Parameters**
 
-| Parameter | Type     | Required | Default | Description           |
-| --------- | -------- | -------- | ------- | ------------------------ |
+| Parameter | Type     | Required | Default | Description                  |
+| --------- | -------- | -------- | ------- | ---------------------------- |
 | `cls`     | `string` | Yes      | —       | The class name to search for |
 
 **Returns:** Array of matching `DirectiveObject` instances.
@@ -822,8 +832,8 @@ getDirectivesByTagName(tagName: string): DirectiveObject[]
 
 **Parameters**
 
-| Parameter | Type     | Required | Default | Description       |
-| --------- | -------- | -------- | ------- | --------------------- |
+| Parameter | Type     | Required | Default | Description                |
+| --------- | -------- | -------- | ------- | -------------------------- |
 | `tagName` | `string` | Yes      | —       | The tag name to search for |
 
 **Returns:** Array of matching `DirectiveObject` instances.
@@ -852,9 +862,9 @@ insertBefore(dir: DirectiveObject | string): void
 
 **Parameters**
 
-| Parameter | Type                       | Required | Default | Description           |
-| --------- | ---------------------------- | -------- | ------- | ------------------------ |
-| `dir`     | `DirectiveObject \| string`  | Yes      | —       | The directive to insert    |
+| Parameter | Type                        | Required | Default | Description             |
+| --------- | --------------------------- | -------- | ------- | ----------------------- |
+| `dir`     | `DirectiveObject \| string` | Yes      | —       | The directive to insert |
 
 **Example:**
 
@@ -882,9 +892,9 @@ insertAfter(dir: DirectiveObject | string): void
 
 **Parameters**
 
-| Parameter | Type                       | Required | Default | Description           |
-| --------- | ---------------------------- | -------- | ------- | ------------------------ |
-| `dir`     | `DirectiveObject \| string`  | Yes      | —       | The directive to insert    |
+| Parameter | Type                        | Required | Default | Description             |
+| --------- | --------------------------- | -------- | ------- | ----------------------- |
+| `dir`     | `DirectiveObject \| string` | Yes      | —       | The directive to insert |
 
 **Example:**
 
@@ -912,9 +922,9 @@ replaceWith(dir: DirectiveObject | string): void
 
 **Parameters**
 
-| Parameter | Type                       | Required | Default | Description              |
-| --------- | ---------------------------- | -------- | ------- | --------------------------- |
-| `dir`     | `DirectiveObject \| string`  | Yes      | —       | The directive to replace with |
+| Parameter | Type                        | Required | Default | Description                   |
+| --------- | --------------------------- | -------- | ------- | ----------------------------- |
+| `dir`     | `DirectiveObject \| string` | Yes      | —       | The directive to replace with |
 
 **Example:**
 
@@ -989,8 +999,10 @@ console.log(div.toString())
   `setAttribute` — both work, but property access reads better for everyday use.
 - **Don't overwrite space-separated classes.** Split, modify, and rejoin
   instead of assigning a single new value: `dir.class = (dir.class ?? "").split(" ").concat("new").join(" ")`.
-- **Self-closing directives have no `innerText`.** Setting it on `input`,
-  `textarea`, `button`, or `option` throws — use their attributes instead.
+- **Self-closing directives have no `innerText`/`innerMD`.** Setting either on
+  `input`, `button`, or `option` throws — use their attributes instead.
+  `textarea` is a block directive and _can_ hold text — use its
+  [`value`](#value) property.
 - **Don't reuse a `DirectiveObject` after calling `remove()`** — the instance
   becomes invalid.
 - **Use `createDirective()` for dynamic content**, then `insertBefore`/`insertAfter`/`replaceWith` to place it.
