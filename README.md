@@ -9,8 +9,10 @@ This website is built using [Docusaurus](https://docusaurus.io/), a modern stati
 ### Installation
 
 ```
-$ npm install
+$ npm ci
 ```
+
+This installs the exact versions pinned in `package-lock.json`. Use `npm install <package>` only when adding or upgrading a dependency.
 
 ### Local Development
 
@@ -30,16 +32,4 @@ This command generates static content into the `build` directory and can be serv
 
 ### Deployment
 
-Using SSH:
-
-```
-$ USE_SSH=true yarn deploy
-```
-
-Not using SSH:
-
-```
-$ GIT_USER=<Your GitHub username> npm run deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+The site is deployed to GitHub Pages by `.github/workflows/deploy.yml` whenever changes are pushed to `main`. There is no manual step.
