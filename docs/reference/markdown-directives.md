@@ -2,10 +2,10 @@
 
 Markdown directives are custom syntax elements that add interactive UI components — form inputs, buttons, and containers — directly into documents. They follow a consistent double-brace syntax and integrate with macros via the `hai.doc` library.
 
-**Syntax:**
+**Syntax**
 
 ```
-{{tagName attribute="value" booleanAttribute}}
+{{tagName attribute="value"}}
 ```
 
 ```
@@ -17,7 +17,7 @@ Markdown directives are custom syntax elements that add interactive UI component
 ### Form directives
 
 | Directive                           | Self-closing | Description                                                             |
-| ----------------------------------- | ------------ | ----------------------------------------------------------------------- |
+| :---------------------------------- | :----------- | :---------------------------------------------------------------------- |
 | [`button`](#button)                 | Yes          | Triggers a macro or snippet on click                                    |
 | [`checkbox-group`](#checkbox-group) | No           | Group of toggleable checkboxes                                          |
 | [`datalist`](#datalist)             | No           | Searchable dropdown with free-text fallback                             |
@@ -30,7 +30,7 @@ Markdown directives are custom syntax elements that add interactive UI component
 ### Container directives
 
 | Directive       | Description                                                        |
-| --------------- | ------------------------------------------------------------------ |
+| :-------------- | :----------------------------------------------------------------- |
 | [`span`](#span) | Inline container for text or inline elements                       |
 | [`div`](#div)   | Generic block container with optional visual and action features   |
 | [`note`](#note) | Styled callout block with optional type, title, and action buttons |
@@ -38,20 +38,33 @@ Markdown directives are custom syntax elements that add interactive UI component
 ### Global attributes
 
 | Attribute         | Applies to | Description                                                       |
-| ----------------- | ---------- | ----------------------------------------------------------------- |
+| :---------------- | :--------- | :---------------------------------------------------------------- |
 | [`id`](#id)       | All        | Unique identifier; used with `hai.doc` query methods              |
 | [`class`](#class) | All        | Space-separated CSS class names; also controls built-in behaviors |
 
 ### Built-in class names
 
-| Class                                        | Effect                                                      |
-| -------------------------------------------- | ----------------------------------------------------------- |
-| `commit`                                     | Adds a button to replace the element with its inner content |
-| `copy`                                       | Adds a button to copy content to clipboard (as HTML)        |
-| `fold`                                       | Adds a collapse/expand toggle                               |
-| `remove`                                     | Adds a button to delete the element                         |
-| `primary`, `secondary`, `tertiary`           | Presentation styles                                         |
-| `info`, `tip`, `success`, `warning`, `error` | Semantic color styles                                       |
+| Class                                                  | Applies to                                 | Effect                                                                                                                                                                 |
+| :----------------------------------------------------- | :----------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `column`                                               | `checkbox-group`, `radio-group`            | Stacks the options vertically                                                                                                                                          |
+| `commit`                                               | `note`, `div`, `span`, `input`, `textarea` | Replaces the element with its inner content. On `note`, `div`, and `span`, adds a button for this. On form fields, see [Commit on form fields](#commit-on-form-fields) |
+| `copy`                                                 | `note`, `div`, `span`                      | Adds a button to copy content to clipboard (as HTML)                                                                                                                   |
+| `fold`                                                 | `note`, `div`                              | Adds a collapse/expand toggle                                                                                                                                          |
+| `folded`                                               | `note`, `div`                              | With `fold`, starts the element in the collapsed state                                                                                                                 |
+| `panel`                                                | `div`                                      | Applies panel styling (background, border, padding)                                                                                                                    |
+| `remove`                                               | `note`, `div`, `span`                      | Adds a button to delete the element                                                                                                                                    |
+| `primary` (default), `secondary`, `tertiary`           | `button`                                   | Presentation styles                                                                                                                                                    |
+| `info`, `tip`, `success`, `warning`, `error`, `danger` | `note`, `button`                           | Semantic color styles                                                                                                                                                  |
+
+On `button`, only `info`, `success`, `warning`, and `danger` have a style.
+
+### Commit on form fields
+
+On a form field, `class="commit"` does not add a button. The field replaces itself with its value as soon as it has one:
+
+- `input type="text"` and `textarea`: on the first keystroke or paste. The field shows a commit icon.
+- `input type="date"` and `input type="datetime-local"`: when the value changes. The field shows no icon.
+- `input type="number"`: not supported. The field ignores `commit`.
 
 ## Global Attributes
 
@@ -59,24 +72,46 @@ Markdown directives are custom syntax elements that add interactive UI component
 
 A unique identifier for the directive within the document. Required when targeting the element with macros.
 
+**Syntax**
+
+```
+{{tagName id="unique-name"}}
+```
+
+**Examples**
+
 ```
 {{input id="customer-name"}}
 ```
 
 ```
-{{div id="summary-section"}}content{{/div}}
+{{div id="summary-section"}}
+content
+{{/div}}
 ```
 
 ### class
 
 Space-separated CSS class names. In addition to custom styling, several built-in class names enable interactive behaviors (see [Built-in class names](#built-in-class-names) above).
 
+**Syntax**
+
 ```
-{{div class="fold"}}Collapsible section{{/div}}
+{{tagName class="name1 name2"}}
+```
+
+**Examples**
+
+```
+{{div class="fold"}}
+Collapsible section
+{{/div}}
 ```
 
 ```
-{{div class="commit copy"}}Content with two actions{{/div}}
+{{div class="commit copy"}}
+Content with two actions
+{{/div}}
 ```
 
 ## Form Directives
@@ -85,14 +120,18 @@ Space-separated CSS class names. In addition to custom styling, several built-in
 
 Triggers a snippet or macro when clicked.
 
-**Syntax:** `{{button ...attributes}}`
+**Syntax**
+
+```
+{{button ...attributes}}
+```
 
 **Attributes**
 
-| Attribute | Required | Default | Description                                                   |
-| --------- | -------- | ------- | ------------------------------------------------------------- |
-| `onclick` | Yes      | —       | Snippet or macro trigger. Format: `$Name` or `$Name[ordinal]` |
-| `text`    | Yes      | —       | Label displayed on the button                                 |
+| Attribute | Required | Default | Description                                                     |
+| :-------- | :------- | :------ | :-------------------------------------------------------------- |
+| onclick   | Yes      | —       | Snippet or macro trigger. Format: `$Name` or `$Name[<ordinal>]` |
+| text      | Yes      | —       | Label displayed on the button                                   |
 
 **Examples**
 
@@ -112,7 +151,7 @@ Triggers a snippet or macro when clicked.
 
 Renders a group of checkboxes. Each option is a nested [`option`](#option) directive.
 
-**Syntax:**
+**Syntax**
 
 ```
 {{checkbox-group ...attributes}}
@@ -124,17 +163,23 @@ Renders a group of checkboxes. Each option is a nested [`option`](#option) direc
 **Attributes**
 
 | Attribute | Required | Default | Description                            |
-| --------- | -------- | ------- | -------------------------------------- |
-| `value`   | No       | —       | Comma-separated list of checked values |
-| `column`  | No       | —       | Boolean. Stacks checkboxes vertically  |
+| :-------- | :------- | :------ | :------------------------------------- |
+| value     | No       | —       | Comma-separated list of checked values |
 
 **Examples**
 
 ```
-{{checkbox-group value="email,sms" column}}
+{{checkbox-group class="column" value="email,sms"}}
   {{option value="email" label="Email"}}
   {{option value="sms" label="SMS"}}
   {{option value="phone" label="Phone"}}
+{{/checkbox-group}}
+```
+
+```
+{{checkbox-group}}
+  {{option value="email" label="Email"}}
+  {{option value="sms" label="SMS"}}
 {{/checkbox-group}}
 ```
 
@@ -142,7 +187,7 @@ Renders a group of checkboxes. Each option is a nested [`option`](#option) direc
 
 A searchable dropdown that also accepts free-text entry.
 
-**Syntax:**
+**Syntax**
 
 ```
 {{datalist ...attributes}}
@@ -152,11 +197,11 @@ A searchable dropdown that also accepts free-text entry.
 
 **Attributes**
 
-| Attribute     | Required | Default | Description                                                                            |
-| ------------- | -------- | ------- | -------------------------------------------------------------------------------------- |
-| `placeholder` | No       | —       | Hint text when nothing is selected                                                     |
-| `value`       | No       | —       | Currently selected or entered value                                                    |
-| `cols`        | No       | —       | Width in characters. Use `fill` for 100% width. Defaults to content width when omitted |
+| Attribute   | Required | Default | Description                                                                            |
+| :---------- | :------- | :------ | :------------------------------------------------------------------------------------- |
+| placeholder | No       | —       | Hint text when nothing is selected                                                     |
+| value       | No       | —       | Currently selected or entered value                                                    |
+| cols        | No       | —       | Width in characters. Use `fill` for 100% width. Defaults to content width when omitted |
 
 **Examples**
 
@@ -179,19 +224,22 @@ A searchable dropdown that also accepts free-text entry.
 
 Single-line text, number, date, or datetime-local field.
 
-**Syntax:** `{{input ...attributes}}`
+**Syntax**
+
+```
+{{input ...attributes}}
+```
 
 **Attributes**
 
-| Attribute     | Required | Default | Description                                                                                                     |
-| ------------- | -------- | ------- | --------------------------------------------------------------------------------------------------------------- |
-| `type`        | No       | `text`  | `text` \| `number` \| `date` \| `datetime-local`                                                                |
-| `placeholder` | No       | —       | Hint text when empty                                                                                            |
-| `value`       | No       | —       | Current value                                                                                                   |
-| `cols`        | No       | `20`    | Width in characters (`text`, `number`). Use `fill` for 100% width. `date`/`datetime-local` support `fill` only. |
-| `commit`      | No       | —       | Boolean. Replaces the input with its value on entry                                                             |
+| Attribute   | Required | Default | Description                                                                                                     |
+| :---------- | :------- | :------ | :-------------------------------------------------------------------------------------------------------------- |
+| type        | No       | `text`  | `text` \| `number` \| `date` \| `datetime-local`                                                                |
+| placeholder | No       | —       | Hint text when empty                                                                                            |
+| value       | No       | —       | Current value                                                                                                   |
+| cols        | No       | `20`    | Width in characters (`text`, `number`). Use `fill` for 100% width. `date`/`datetime-local` support `fill` only. |
 
-**Example**
+**Examples**
 
 ```
 {{input type="text" placeholder="Your name"}}
@@ -221,14 +269,18 @@ Single-line text, number, date, or datetime-local field.
 
 A single option used inside `checkbox-group`, `datalist`, `radio-group`, or `select`.
 
-**Syntax:** `{{option ...attributes}}`
+**Syntax**
+
+```
+{{option ...attributes}}
+```
 
 **Attributes**
 
 | Attribute | Required | Default         | Description                    |
-| --------- | -------- | --------------- | ------------------------------ |
-| `value`   | Yes      | —               | The option's value             |
-| `label`   | No       | Same as `value` | Display text shown to the user |
+| :-------- | :------- | :-------------- | :----------------------------- |
+| value     | Yes      | —               | The option's value             |
+| label     | No       | Same as `value` | Display text shown to the user |
 
 **Examples**
 
@@ -240,13 +292,11 @@ A single option used inside `checkbox-group`, `datalist`, `radio-group`, or `sel
 {{option value="1" label="Yes"}}
 ```
 
----
-
 ### radio-group
 
 Single-selection button group. Each option is a nested [`option`](#option) directive.
 
-**Syntax:**
+**Syntax**
 
 ```
 {{radio-group ...attributes}}
@@ -256,18 +306,24 @@ Single-selection button group. Each option is a nested [`option`](#option) direc
 
 **Attributes**
 
-| Attribute | Required | Default | Description                              |
-| --------- | -------- | ------- | ---------------------------------------- |
-| `value`   | No       | —       | Value of the selected option             |
-| `column`  | No       | —       | Boolean. Stacks radio buttons vertically |
+| Attribute | Required | Default | Description                  |
+| :-------- | :------- | :------ | :--------------------------- |
+| value     | No       | —       | Value of the selected option |
 
-**Example**
+**Examples**
 
 ```
-{{radio-group value="medium" column}}
+{{radio-group class="column" value="medium"}}
   {{option value="low" label="Low"}}
   {{option value="medium" label="Medium"}}
   {{option value="high" label="High"}}
+{{/radio-group}}
+```
+
+```
+{{radio-group}}
+  {{option value="yes" label="Yes"}}
+  {{option value="no" label="No"}}
 {{/radio-group}}
 ```
 
@@ -275,7 +331,7 @@ Single-selection button group. Each option is a nested [`option`](#option) direc
 
 Fixed-choice dropdown. Each option is a nested [`option`](#option) directive.
 
-**Syntax:**
+**Syntax**
 
 ```
 {{select ...attributes}}
@@ -285,13 +341,13 @@ Fixed-choice dropdown. Each option is a nested [`option`](#option) directive.
 
 **Attributes**
 
-| Attribute     | Required | Default | Description                                                                                   |
-| ------------- | -------- | ------- | --------------------------------------------------------------------------------------------- |
-| `placeholder` | No       | —       | Hint text when nothing is selected                                                            |
-| `value`       | No       | —       | Value of the selected option                                                                  |
-| `cols`        | No       | —       | Width in characters (min-width floor; grows to the selected label). Use `fill` for 100% width |
+| Attribute   | Required | Default | Description                                                                                   |
+| :---------- | :------- | :------ | :-------------------------------------------------------------------------------------------- |
+| placeholder | No       | —       | Hint text when nothing is selected                                                            |
+| value       | No       | —       | Value of the selected option                                                                  |
+| cols        | No       | —       | Width in characters (min-width floor; grows to the selected label). Use `fill` for 100% width |
 
-**Example**
+**Examples**
 
 ```
 {{select placeholder="Priority" value="Medium"}}
@@ -302,32 +358,43 @@ Fixed-choice dropdown. Each option is a nested [`option`](#option) directive.
 ```
 
 ```
-{{checkbox-group column value="foo,baz"}}
-    {{option value="foo"}}
-    {{option value="bar" label="Bar Label"}}
-    {{option value="baz"}}
-{{/checkbox-group}}
+{{select cols="fill" placeholder="Priority"}}
+  {{option value="Low"}}
+  {{option value="High"}}
+{{/select}}
 ```
 
 ### textarea
 
 Multi-line text input.
 
-**Syntax:** `{{textarea ...attributes}}content{{/textarea}}`
+**Syntax**
+
+```
+{{textarea ...attributes}}
+content
+{{/textarea}}
+```
 
 **Attributes**
 
-| Attribute     | Required | Default | Description                                              |
-| ------------- | -------- | ------- | -------------------------------------------------------- |
-| `placeholder` | No       | —       | Hint text when empty                                     |
-| `rows`        | No       | `2`     | Height in lines. Auto-resizes to content                 |
-| `cols`        | No       | `fill`  | Width in characters (`fill` = 100% width)                |
-| `commit`      | No       | —       | Boolean. Replaces the textarea with its content on entry |
+| Attribute   | Required | Default | Description                               |
+| :---------- | :------- | :------ | :---------------------------------------- |
+| placeholder | No       | —       | Hint text when empty                      |
+| rows        | No       | `2`     | Height in lines. Auto-resizes to content  |
+| cols        | No       | `fill`  | Width in characters (`fill` = 100% width) |
 
-**Example**
+**Examples**
 
 ```
-{{textarea placeholder="Describe the issue..." rows="6"}}{{/textarea}}
+{{textarea placeholder="Describe the issue..." rows="6"}}
+{{/textarea}}
+```
+
+```
+{{textarea placeholder="Describe the issue..." rows="6"}}
+The export button does nothing on Safari.
+{{/textarea}}
 ```
 
 ## Container Directives
@@ -336,7 +403,7 @@ Multi-line text input.
 
 A styled callout block with optional type-specific colors and action buttons.
 
-**Syntax:**
+**Syntax**
 
 ```
 {{note ...attributes}}
@@ -347,19 +414,21 @@ A styled callout block with optional type-specific colors and action buttons.
 **Attributes**
 
 | Attribute | Required | Default   | Description                                                                            |
-| --------- | -------- | --------- | -------------------------------------------------------------------------------------- |
-| `type`    | No       | —         | `info` \| `tip` \| `success` \| `warning` \| `error` \| `danger` — sets color and icon |
-| `title`   | No       | Type name | Heading text. Defaults to the type name when `type` is set                             |
-| `fold`    | No       | —         | Boolean. Adds collapse/expand toggle                                                   |
-| `commit`  | No       | —         | Boolean. Adds button to unwrap content                                                 |
-| `copy`    | No       | —         | Boolean. Adds button to copy content to clipboard                                      |
-| `remove`  | No       | —         | Boolean. Adds button to delete the note                                                |
+| :-------- | :------- | :-------- | :------------------------------------------------------------------------------------- |
+| type      | No       | —         | `info` \| `tip` \| `success` \| `warning` \| `error` \| `danger` — sets color and icon |
+| title     | No       | Type name | Heading text. Defaults to the type name when `type` is set                             |
 
-**Example**
+**Examples**
 
 ```
-{{note type="warning" title="Before you proceed" fold}}
+{{note type="warning" title="Before you proceed" class="fold"}}
   Check that all required fields are filled in before submitting.
+{{/note}}
+```
+
+```
+{{note type="info"}}
+  The report updates every night at 02:00.
 {{/note}}
 ```
 
@@ -367,7 +436,7 @@ A styled callout block with optional type-specific colors and action buttons.
 
 Generic block container with optional visual emphasis and action buttons.
 
-**Syntax:**
+**Syntax**
 
 ```
 {{div ...attributes}}
@@ -377,20 +446,21 @@ Generic block container with optional visual emphasis and action buttons.
 
 **Attributes**
 
-| Attribute | Required | Default | Description                                                  |
-| --------- | -------- | ------- | ------------------------------------------------------------ |
-| `panel`   | No       | —       | Boolean. Applies panel styling (background, border, padding) |
-| `fold`    | No       | —       | Boolean. Adds collapse/expand toggle                         |
-| `commit`  | No       | —       | Boolean. Adds button to unwrap content                       |
-| `copy`    | No       | —       | Boolean. Adds button to copy content to clipboard            |
-| `remove`  | No       | —       | Boolean. Adds button to delete the div                       |
+None (aside from the global attributes).
 
-**Example**
+**Examples**
 
 ```
-{{div panel fold}}
+{{div class="panel fold"}}
   ## Action Items
   {{textarea placeholder="List action items..." rows="4"}}
+  {{/textarea}}
+{{/div}}
+```
+
+```
+{{div class="copy remove"}}
+  Thank you for your order. We will send it within two days.
 {{/div}}
 ```
 
@@ -398,31 +468,32 @@ Generic block container with optional visual emphasis and action buttons.
 
 Inline container for wrapping text or inline elements with optional action buttons.
 
-**Syntax:** `{{span ...attributes}}inline content{{/span}}`
+**Syntax**
+
+```
+{{span ...attributes}}inline content{{/span}}
+```
 
 **Attributes**
 
-| Attribute | Required | Default | Description                                       |
-| --------- | -------- | ------- | ------------------------------------------------- |
-| `commit`  | No       | —       | Boolean. Adds button to unwrap content            |
-| `copy`    | No       | —       | Boolean. Adds button to copy content to clipboard |
-| `remove`  | No       | —       | Boolean. Adds button to delete the span           |
+None (aside from the global attributes).
 
-**Example**
+**Examples**
 
 ```
-Customer {{span commit}}{{input placeholder="Name"}}{{/span}} placed an order.
+Customer {{span class="commit remove"}}{{input placeholder="Name"}}{{/span}} placed an order.
 ```
 
-<details>
-<summary>Tips and best practices</summary>
+```
+Your order number is {{span class="copy"}}Order 1042{{/span}}.
+```
+
+## Tips and best practices
 
 - **Save frequent patterns as snippets.** A snippet named `DatePicker` containing `{{input type="date"}}` can be inserted anywhere with `/DatePicker`.
 - **Use meaningful `id` values.** Descriptive IDs make it easier to target directives with `hai.doc.getDirectiveById()`.
 - **Group related fields.** Wrap related inputs in a `div` or `note` for logical organization and shared actions.
 - **Use `commit` for finalization.** Templates that should produce plain text output should use `commit` on containers.
-- **Add `fold` to long sections.** Collapsible sections keep complex documents manageable.
+- **Add `class="fold"` to long sections.** Collapsible sections keep complex documents manageable.
 - **Enable quick input mode** (`Cmd/Ctrl + Alt + Q`) for rapid sequential form filling.
 - **Choose the right input type.** Use `type="date"` or `type="datetime-local"` instead of text fields for temporal data.
-
-</details>
